@@ -1,6 +1,9 @@
 #pragma once
-class Part
-{
+#include "PartType.h"
+
+
+class Part {
+
 public:
 	Part();
 	virtual ~Part();

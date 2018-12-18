@@ -13,5 +13,6 @@ public:
 
 public:
 	std::string& getName();
+	virtual std::string getDetail();
 };
 

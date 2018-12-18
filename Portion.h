@@ -8,5 +8,8 @@ private:
 public:
 	Portion(const std::string& _name, const int _level, const int _power);
 	virtual ~Portion() = default;
+
+public:
+	std::string getDetail() override;
 };
 

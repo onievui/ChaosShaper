@@ -4,7 +4,7 @@
 #include <memory>
 #include "Part.h"
 #include "Item.h"
-#include "CharaParameter.h"
+#include "Parameter.h"
 
 
 
@@ -28,10 +28,10 @@ public:
 	std::string& getName();
 	bool addPart(std::unique_ptr<Part>&& _part);
 	bool addParts(std::vector<std::unique_ptr<Part>>&& _parts);
-	//std::vector<std::unique_ptr<Part>>& getParts();
+	std::vector<std::unique_ptr<Part>>& getParts();
 	bool addItem(std::unique_ptr<Item>&& _item);
 	bool addItems(std::vector<std::unique_ptr<Item>>&& _items);
-	//std::vector<std::unique_ptr<Item>>& getItems();
+	std::vector<std::unique_ptr<Item>>& getItems();
 	void setStatus(const CharaParameter& _parameter);
 	CharaParameter& getStatus();
 };
