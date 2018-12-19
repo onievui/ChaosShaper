@@ -154,6 +154,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Part.cpp" />
+    <ClCompile Include="PartType.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portion.cpp" />
   </ItemGroup>
