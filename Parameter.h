@@ -1,6 +1,6 @@
 #pragma once
 
-
+class EquipParameter;
 
 class CharaParameter {
 public:
@@ -15,6 +15,9 @@ public:
 public:
 	CharaParameter();
 	CharaParameter(const int _lvl, const int _mhp, const int _atk, const int _def, const int _spd, const int _crt);
+
+public:
+	void addParameter(const EquipParameter& _equip_parameter);
 };
 
 

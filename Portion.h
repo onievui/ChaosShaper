@@ -10,6 +10,6 @@ public:
 	virtual ~Portion() = default;
 
 public:
-	std::string getDetail() override;
+	std::string getDetail() const override;
 };
 

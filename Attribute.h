@@ -19,5 +19,5 @@ public:
 	AttributePower(const Attribute _attribute, const int _power);
 
 public:
-	std::string getDetail();
+	std::string getDetail() const;
 };

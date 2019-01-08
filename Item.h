@@ -12,7 +12,7 @@ public:
 	virtual ~Item() = default;
 
 public:
-	std::string& getName();
-	virtual std::string getDetail();
+	const std::string& getName() const;
+	virtual std::string getDetail() const;
 };
 

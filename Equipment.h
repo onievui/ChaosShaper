@@ -8,13 +8,15 @@
 class Equipment : public Item {
 private:
 	PartType partType;
-	CharaParameter parameter;
+	EquipParameter parameter;
 	AttributePower attributePower;
 public:
-	Equipment(const std::string& _name, const int _level, const PartType _part_ype, const CharaParameter& _parameter, const AttributePower& _attribute_power);
+	Equipment(const std::string& _name, const int _level, const PartType _part_ype, const EquipParameter& _parameter, const AttributePower& _attribute_power);
 	virtual ~Equipment() = default;
 
 public:
-	std::string getDetail() override;
+	std::string getDetail() const override;
+	const EquipParameter& getParameter() const;
+	const PartType getPartType() const;
 };
 

@@ -78,6 +78,48 @@ void Character::setStatus(const CharaParameter& _parameter) {
 	parameter = _parameter;
 }
 
-CharaParameter& Character::getStatus() {
+const CharaParameter& Character::getDefaultStatus() {
 	return parameter;
 }
+
+CharaParameter Character::getStatus() {
+	CharaParameter final_parameter = parameter;
+	for (const auto &part : parts) {
+		Equipment* equip = part->getEquipment();
+		if (equip) {
+			final_parameter.addParameter(equip->getParameter());
+		}
+	}
+	return final_parameter;
+}
+
+void Character::autoEquipping() {
+	//for (const auto& item : items) {
+	//	Equipment* equip = dynamic_cast<Equipment*>(item.get());
+	//	if (equip) {
+	//		for (const auto& part : parts) {
+	//			if (part->canEquip(equip)) {
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
+	for (const auto& part : parts) {
+		//‘•”õ’†‚È‚ç”ò‚Î‚·
+		if (part.get()->isEquipping()) {
+			continue;
+		}
+		for (int i, size = items.size(); i < size; ++i) {
+			//‘•”õ•i‚Å‚È‚¢‚È‚ç”ò‚Î‚·
+			Equipment* equip = dynamic_cast<Equipment*>(items[i].get());
+			if (!equip) {
+				continue;
+			}
+			//‘•”õ‰Â”\‚È‚ç‘•”õ
+			if (part->canEquip(equip)) {
+
+			}
+		}
+	}
+}
+

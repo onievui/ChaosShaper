@@ -6,7 +6,7 @@ Portion::Portion(const std::string& _name, const int _level, const int _power)
 	, power(_power) {
 }
 
-std::string Portion::getDetail() {
+std::string Portion::getDetail() const {
 	std::string str;
 	str = name + "+" + std::to_string(level);
 	return str;

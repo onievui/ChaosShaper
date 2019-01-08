@@ -6,17 +6,43 @@
 int main() {
 
 	//Item item = Item("pot", 100);
-	Equipment equip = Equipment("sword", 10, PartType::Arm, CharaParameter(), AttributePower(Attribute::Fire, 200));
+	Player player = Player("ony");
+	auto equip = std::make_unique<Equipment>("sword", 10, PartType::Arm, EquipParameter(), AttributePower(Attribute::Fire, 200));
+	auto part = std::make_unique<Part>(PartType::Arm);
+	player.addPart(std::move(part));
+	player.addItem(std::move(equip));
+
 
 	//std::cout << item.getName();
 	//std::cout << std::endl;
 	//std::cout << item.getDetail();
 	//std::cout << std::endl;
 
-	std::cout << equip.getName();
+	std::cout << "name : " + player.getName() << std::endl;
 	std::cout << std::endl;
-	std::cout << equip.getDetail();
+
+
+	//std::cout << equip.getName();
+	//std::cout << std::endl;
+	//std::cout << equip.getDetail();
+	//std::cout << std::endl;
+
+	CharaParameter param = player.getStatus();
+	std::cout << "level   : " << param.level << std::endl;
+	std::cout << "hp      : " << param.hp << std::endl;
+	std::cout << "attack  : " << param.attack << std::endl;
+	std::cout << "defence : " << param.defence << std::endl;
 	std::cout << std::endl;
+
+
+	auto& parts = player.getParts();
+	for (const auto& part : parts) {
+		std::cout << part->getDetail() << std::endl;
+	}
+	std::cout << std::endl;
+
+
+
 
 	return 0;
 }

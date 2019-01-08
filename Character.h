@@ -29,9 +29,14 @@ public:
 	bool addPart(std::unique_ptr<Part>&& _part);
 	bool addParts(std::vector<std::unique_ptr<Part>>&& _parts);
 	std::vector<std::unique_ptr<Part>>& getParts();
+
 	bool addItem(std::unique_ptr<Item>&& _item);
 	bool addItems(std::vector<std::unique_ptr<Item>>&& _items);
 	std::vector<std::unique_ptr<Item>>& getItems();
+
 	void setStatus(const CharaParameter& _parameter);
-	CharaParameter& getStatus();
+	const CharaParameter& getDefaultStatus();
+	CharaParameter getStatus();
+
+	void autoEquipping();
 };
