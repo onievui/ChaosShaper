@@ -38,7 +38,7 @@ bool Character::addParts(std::vector<std::unique_ptr<Part>>&& _parts) {
 	if (pri_size == PARTS_MAX || add_size == 0) {
 		return false;
 	}
-
+	//最大部位数に到達したらループを終了する
 	for (int i = 0; i < add_size && pri_size + i < PARTS_MAX; ++i) {
 		parts.emplace_back(std::move(_parts[i]));
 	}
@@ -85,39 +85,32 @@ const CharaParameter& Character::getDefaultStatus() {
 CharaParameter Character::getStatus() {
 	CharaParameter final_parameter = parameter;
 	for (const auto &part : parts) {
-		Equipment* equip = part->getEquipment();
-		if (equip) {
-			final_parameter.addParameter(equip->getParameter());
+		if (part->isEquipping()) {
+			final_parameter.addParameter(part->getEquipment()->getParameter());
 		}
 	}
 	return final_parameter;
 }
 
 void Character::autoEquipping() {
-	//for (const auto& item : items) {
-	//	Equipment* equip = dynamic_cast<Equipment*>(item.get());
-	//	if (equip) {
-	//		for (const auto& part : parts) {
-	//			if (part->canEquip(equip)) {
-	//				break;
-	//			}
-	//		}
-	//	}
-	//}
 	for (const auto& part : parts) {
 		//装備中なら飛ばす
-		if (part.get()->isEquipping()) {
+		if (part->isEquipping()) {
 			continue;
 		}
-		for (int i, size = items.size(); i < size; ++i) {
+		for (auto it = items.begin(), end = items.end(); it != end; ++it) {
 			//装備品でないなら飛ばす
-			Equipment* equip = dynamic_cast<Equipment*>(items[i].get());
+			Equipment* equip = dynamic_cast<Equipment*>(it->get());
 			if (!equip) {
 				continue;
 			}
 			//装備可能なら装備
 			if (part->canEquip(equip)) {
-
+				//派生クラスに変換して装備させる
+				part->setEquipment(std::make_unique<Equipment>(*((Equipment*)it->get())));
+				//リストから削除してループを抜ける
+				items.erase(it);
+				break;
 			}
 		}
 	}

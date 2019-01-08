@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
 
-constexpr void ErrorMessage(const LPCWSTR message);
-
+inline void ErrorMessage(const LPCWSTR message) {
+	MessageBox(NULL, message, L"", MB_OK);
+}

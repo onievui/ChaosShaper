@@ -29,15 +29,12 @@ bool Part::isEquipping() const {
 }
 
 bool Part::canEquip(const Equipment* _equipment) const {
-	if (isEquipping()) {
-		return false;
-	}
 	return partType.equal(_equipment->getPartType());
 }
 
 void Part::setEquipment(std::unique_ptr<Equipment>&& _equipment) {
 	if (partType.equal(_equipment->getPartType())) {
-
+		equipment = std::move(_equipment);
 	}
 }
 

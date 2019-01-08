@@ -11,7 +11,7 @@ Equipment::Equipment(const std::string& _name, const int _level, const PartType 
 
 std::string Equipment::getDetail() const {
 	std::string str;
-	str = partType.getName() + " ";
+	str = partType.getName() + " : ";
 	str += name + "+" + std::to_string(level);
 	str += " " + attributePower.getDetail();
 	return str;

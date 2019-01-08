@@ -12,20 +12,8 @@ int main() {
 	player.addPart(std::move(part));
 	player.addItem(std::move(equip));
 
-
-	//std::cout << item.getName();
-	//std::cout << std::endl;
-	//std::cout << item.getDetail();
-	//std::cout << std::endl;
-
 	std::cout << "name : " + player.getName() << std::endl;
 	std::cout << std::endl;
-
-
-	//std::cout << equip.getName();
-	//std::cout << std::endl;
-	//std::cout << equip.getDetail();
-	//std::cout << std::endl;
 
 	CharaParameter param = player.getStatus();
 	std::cout << "level   : " << param.level << std::endl;
@@ -41,7 +29,12 @@ int main() {
 	}
 	std::cout << std::endl;
 
+	player.autoEquipping();
 
+	for (const auto& part : parts) {
+		std::cout << part->getDetail() << std::endl;
+	}
+	std::cout << std::endl;
 
 
 	return 0;
