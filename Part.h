@@ -21,5 +21,7 @@ public:
 	bool canEquip(const Equipment* _equipment) const;
 	void setEquipment(std::unique_ptr<Equipment>&& _equipment);
 	Equipment* getEquipment() const;
+
+	void removeEquipment();
 };
 

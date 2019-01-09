@@ -38,5 +38,8 @@ public:
 	const CharaParameter& getDefaultStatus();
 	CharaParameter getStatus();
 
+public:
+	bool equipItem(std::vector<std::unique_ptr<Item>>::iterator& _it);
 	void autoEquipping();
+	void removeEquipment(const int _part_index);
 };

@@ -92,27 +92,46 @@ CharaParameter Character::getStatus() {
 	return final_parameter;
 }
 
-void Character::autoEquipping() {
+bool Character::equipItem(std::vector<std::unique_ptr<Item>>::iterator& it) {
+	//装備品でないなら処理しない
+	Equipment* equip = dynamic_cast<Equipment*>(it->get());
+	if (!equip) {
+		return false;
+	}
 	for (const auto& part : parts) {
 		//装備中なら飛ばす
 		if (part->isEquipping()) {
 			continue;
 		}
-		for (auto it = items.begin(), end = items.end(); it != end; ++it) {
-			//装備品でないなら飛ばす
-			Equipment* equip = dynamic_cast<Equipment*>(it->get());
-			if (!equip) {
-				continue;
-			}
-			//装備可能なら装備
-			if (part->canEquip(equip)) {
-				//派生クラスに変換して装備させる
-				part->setEquipment(std::make_unique<Equipment>(*((Equipment*)it->get())));
-				//リストから削除してループを抜ける
-				items.erase(it);
-				break;
-			}
+		//装備可能なら装備
+		if (part->canEquip(equip)) {
+			//派生クラスに変換して装備させる
+			part->setEquipment(std::make_unique<Equipment>(*equip));
+			//リストから削除する
+			it = items.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+void Character::autoEquipping() {
+	for (auto it = items.begin(); it != items.end();) {
+		//装備品でないなら飛ばす
+		Equipment* equip = dynamic_cast<Equipment*>(it->get());
+		if (!equip) {
+			++it;
+			continue;
+		}
+		//装備に失敗したらイテレータを進める
+		if (!equipItem(it)) {
+			++it;
 		}
 	}
 }
+
+void Character::removeEquipment(const int _part_index) {
+	parts[_part_index]->removeEquipment();
+}
+
 

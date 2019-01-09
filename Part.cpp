@@ -44,3 +44,7 @@ Equipment* Part::getEquipment() const {
 	}
 	return nullptr;
 }
+
+void Part::removeEquipment() {
+	equipment.reset(nullptr);
+}
