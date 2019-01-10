@@ -7,7 +7,9 @@
 #define ErrorMessage
 
 #ifdef ERROR_TYPE_MESSAGEBOX
-	#include <Windows.h>
+	#ifndef _WINUSER_
+		#include <Windows.h>
+	#endif
 	#undef ErrorMessage
 	#define ErrorMessage(message) ErrorMessageBoxA(message)
 	inline void ErrorMessageBoxA(LPCSTR message) {
@@ -16,12 +18,8 @@
 #endif
 
 #ifdef ERROR_TYPE_ASSERT
-	#ifndef ERROR_TYPE_MESSAGEBOX
-		#include <Windows.h>
-	#endif
 	#include <cassert>
 	#undef ErrorMessage
 	#define ErrorMessage(message) assert(!message)
 #endif
-
 
