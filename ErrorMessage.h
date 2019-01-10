@@ -4,20 +4,24 @@
 #define ERROR_TYPE_MESSAGEBOX
 //#define ERROR_TYPE_ASSERT
 
+#define ErrorMessage
+
 #ifdef ERROR_TYPE_MESSAGEBOX
-#include <Windows.h>
-#define ErrorMessage(message) ErrorMessageBoxA(message)
-inline void ErrorMessageBoxA(LPCSTR message) {
-	MessageBoxA(NULL, message, "", MB_OK);
-}
+	#include <Windows.h>
+	#undef ErrorMessage
+	#define ErrorMessage(message) ErrorMessageBoxA(message)
+	inline void ErrorMessageBoxA(LPCSTR message) {
+		MessageBoxA(NULL, message, "", MB_OK);
+	}
 #endif
 
 #ifdef ERROR_TYPE_ASSERT
 	#ifndef ERROR_TYPE_MESSAGEBOX
-	#include <Windows.h>
+		#include <Windows.h>
 	#endif
-#include <cassert>
-#define ErrorMessage(message) assert(!message)
+	#include <cassert>
+	#undef ErrorMessage
+	#define ErrorMessage(message) assert(!message)
 #endif
 
 
