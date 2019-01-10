@@ -13,7 +13,7 @@ std::string PartTypeBase::getName() const {
 	case PartType::Body: return "‘Ì";
 	case PartType::Arm:  return "˜r";
 	case PartType::Leg:  return "‹r";
-	default:             ErrorMessage(L"•s³‚È•”ˆÊ‚Å‚·");
+	default:             ErrorMessage("•s³‚È•”ˆÊ‚Å‚·");
 						 return "<error>";
 	}
 }

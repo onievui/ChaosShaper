@@ -1,5 +1,5 @@
 #include "Character.h"
-
+#include "ErrorMessage.h"
 
 
 const int Character::PARTS_MAX = 10;
@@ -96,6 +96,7 @@ bool Character::equipItem(std::vector<std::unique_ptr<Item>>::iterator& it) {
 	//‘•”õ•i‚Å‚È‚¢‚È‚çˆ—‚µ‚È‚¢
 	Equipment* equip = dynamic_cast<Equipment*>(it->get());
 	if (!equip) {
+		ErrorMessage("‘•”õ•i‚Å‚È‚¢‚à‚Ì‚ğ‘•”õ‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚Ü‚·");
 		return false;
 	}
 	for (const auto& part : parts) {

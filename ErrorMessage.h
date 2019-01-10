@@ -3,7 +3,7 @@
 
 #define ErrorMessage(message) ErrorMessageA(message)
 
-inline void ErrorMessageA(const LPCWSTR message) {
-	MessageBox(NULL, message, L"", MB_OK);
+inline void ErrorMessageA(LPCSTR message) {
+	MessageBoxA(NULL, message, "", MB_OK);
 }
 

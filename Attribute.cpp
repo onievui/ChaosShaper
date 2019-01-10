@@ -15,7 +15,7 @@ std::string AttributePower::getDetail() const {
 	case Attribute::Fire:   str.append("炎 "); break;
 	case Attribute::Freeze: str.append("氷 "); break;
 	case Attribute::Wind:   str.append("風 "); break;
-	default:				ErrorMessage(L"属性データの属性が不正です"); break;
+	default:				ErrorMessage("属性データの属性が不正です"); break;
 	}
 	str.append(std::to_string(power));
 
