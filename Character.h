@@ -28,6 +28,8 @@ public:
 
 public:
 	std::string& getName();
+	void setName(std::string& _name);
+
 	bool addPart(std::unique_ptr<Part>&& _part);
 	bool addParts(std::vector<std::unique_ptr<Part>>&& _parts);
 	std::vector<std::unique_ptr<Part>>& getParts();

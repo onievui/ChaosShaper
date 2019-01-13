@@ -42,6 +42,14 @@ std::string& Character::getName() {
 }
 
 /// <summary>
+/// –¼‘O‚Ìİ’è
+/// </summary>
+/// <param name="_name">–¼‘O</param>
+void Character::setName(std::string& _name) {
+	name = _name;
+}
+
+/// <summary>
 /// •”ˆÊ‚Ì’Ç‰Á
 /// </summary>
 /// <param name="_part">’Ç‰Á‚·‚é•”ˆÊ</param>

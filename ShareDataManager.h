@@ -7,8 +7,6 @@ class ShareDataManager : public Singleton<ShareDataManager> {
 	friend Singleton<ShareDataManager>;
 
 private:
-	int score;		//今回のスコア
-	int highscore;	//ハイスコア
 
 private:
 	ShareDataManager();
