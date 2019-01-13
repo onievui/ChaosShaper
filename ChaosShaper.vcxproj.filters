@@ -78,6 +78,9 @@
     <ClCompile Include="Portion.cpp">
       <Filter>Game\オブジェクト関係</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Game\ユーティリティ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="Portion.h">
       <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Game\ユーティリティ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
