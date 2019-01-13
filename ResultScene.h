@@ -6,7 +6,6 @@
 
 
 class ResultScene : public AbstractScene {
-
 private:
 
 public:

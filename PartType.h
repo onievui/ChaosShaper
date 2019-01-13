@@ -2,28 +2,12 @@
 #include <string>
 
 
-//class PartType {
-//public:
-//	static const PartType Head;
-//	static const PartType Body;
-//	static const PartType Arm;
-//	static const PartType Leg;
-//
-//private:
-//	int data;
-//
-//public:
-//	PartType() = default;
-//	constexpr explicit PartType(const int data) : data(data) {}
-//
-//public:
-//	std::string getName() const;
-//
-//};
-
 
 class PartType;
 
+/// <summary>
+/// 部位種類ベースクラス
+/// </summary>
 class PartTypeBase {
 
 	friend PartType;
@@ -40,6 +24,9 @@ public:
 	bool equal(const PartType _part_type_base) const;
 };
 
+/// <summary>
+/// 部位種類クラス
+/// </summary>
 class PartType : public PartTypeBase {
 public:
 	static constexpr PartTypeBase Head{ 0 };

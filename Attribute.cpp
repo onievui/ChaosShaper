@@ -3,12 +3,22 @@
 #include <iostream>
 
 
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_attribute">属性</param>
+/// <param name="_power">強度</param>
 AttributePower::AttributePower(const Attribute _attribute, const int _power)
 	: attribute(_attribute)
 	, power(_power) {
 }
 
+/// <summary>
+/// 情報の取得
+/// </summary>
+/// <returns>
+/// 情報テキスト
+/// </returns>
 std::string AttributePower::getDetail() const {
 	std::string str = "";
 	switch (attribute) {

@@ -4,7 +4,9 @@
 #include <memory>
 
 
-
+/// <summary>
+/// •”ˆÊƒNƒ‰ƒX
+/// </summary>
 class Part {
 private:
 	PartType partType;

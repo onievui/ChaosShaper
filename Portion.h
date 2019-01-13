@@ -2,6 +2,9 @@
 #include "Item.h"
 
 
+/// <summary>
+/// ポーションクラス
+/// </summary>
 class Portion : public Item {
 private:
 	int power;

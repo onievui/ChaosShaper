@@ -2,6 +2,9 @@
 
 class EquipParameter;
 
+/// <summary>
+/// キャラクターパラメータクラス
+/// </summary>
 class CharaParameter {
 public:
 	int level;
@@ -20,7 +23,9 @@ public:
 	void addParameter(const EquipParameter& _equip_parameter);
 };
 
-
+/// <summary>
+/// 装備品パラメータクラス
+/// </summary>
 class EquipParameter {
 public:
 	int attack;

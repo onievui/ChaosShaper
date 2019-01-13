@@ -7,7 +7,9 @@
 #include "Parameter.h"
 
 
-
+/// <summary>
+/// キャラクタークラス
+/// </summary>
 class Character {
 public:
 	static const int PARTS_MAX;

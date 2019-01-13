@@ -2,6 +2,9 @@
 #include <string>
 
 
+/// <summary>
+/// アイテムクラス
+/// </summary>
 class Item {
 protected:
 	std::string name;

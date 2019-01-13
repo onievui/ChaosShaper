@@ -8,7 +8,6 @@
 /// ゲームクラス
 /// </summary>
 class Game : public RequestSceneListener {
-
 private:
 	using SceneFactoryMethod = std::unique_ptr<AbstractScene>(*)(RequestSceneListener *_impl);	//シーン生成関数
 
@@ -20,16 +19,14 @@ public:
 	Game();
 	~Game();
 
-	void changeScene();	//シーン切り替え
-
 public:
 	void initialize(void);
 	void update(void);
 	void render(void);
 	void finalize(void);
 
-	void requestScene(const SceneID _id) override; 	//シーン切り替え要求
-
 private:
-	void addScene(const SceneID _id, SceneFactoryMethod _scene_factory_method);
+	void addScene(const SceneID _id, SceneFactoryMethod _scene_factory_method);	//シーンの追加
+	void requestScene(const SceneID _id) override; 	//シーン切り替え要求
+	void changeScene();	//シーン切り替え
 };

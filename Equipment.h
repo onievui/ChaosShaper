@@ -5,11 +5,15 @@
 #include "PartType.h"
 
 
+/// <summary>
+/// ‘•”õ•iƒNƒ‰ƒX
+/// </summary>
 class Equipment : public Item {
 private:
 	PartType partType;
 	EquipParameter parameter;
 	AttributePower attributePower;
+
 public:
 	Equipment(const std::string& _name, const int _level, const PartType _part_ype, const EquipParameter& _parameter, const AttributePower& _attribute_power);
 	virtual ~Equipment() = default;

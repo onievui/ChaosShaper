@@ -1,12 +1,19 @@
 #include "PartType.h"
 #include "ErrorMessage.h"
 
+
 constexpr PartTypeBase PartType::Head;
 constexpr PartTypeBase PartType::Body;
 constexpr PartTypeBase PartType::Arm;
 constexpr PartTypeBase PartType::Leg;
 
 
+/// <summary>
+/// •”ˆÊŽí—Þ–¼‚ÌŽæ“¾
+/// </summary>
+/// <returns>
+/// •”ˆÊŽí—Þ–¼
+/// </returns>
 std::string PartTypeBase::getName() const {
 	switch (data) {
 	case PartType::Head: return "“ª";
@@ -18,6 +25,14 @@ std::string PartTypeBase::getName() const {
 	}
 }
 
+/// <summary>
+/// “¯•”ˆÊŽí—Þƒ^ƒCƒv‚©‚Ç‚¤‚©
+/// </summary>
+/// <param name="_part_type_base">•”ˆÊŽí—Þ</param>
+/// <returns>
+/// true : “¯‚¶
+/// false : ˆá‚¤
+/// </returns>
 bool PartTypeBase::equal(const PartType _part_type_base) const {
 	return data == _part_type_base.data;
 }

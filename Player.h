@@ -2,7 +2,9 @@
 #include "Character.h"
 
 
-
+/// <summary>
+/// プレイヤークラス
+/// </summary>
 class Player : public Character {
 public:
 	Player();

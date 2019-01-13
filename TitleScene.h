@@ -4,7 +4,9 @@
 
 
 
-
+/// <summary>
+/// タイトルシーン
+/// </summary>
 class TitleScene : public AbstractScene {
 private:
 
