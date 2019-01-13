@@ -132,7 +132,8 @@ void Character::autoEquipping() {
 }
 
 void Character::removeEquipment(const int _part_index) {
-	parts[_part_index]->removeEquipment();
+	std::unique_ptr<Equipment> equip = parts[_part_index]->removeEquipment();
+	addItem(std::move(equip));
 }
 
 

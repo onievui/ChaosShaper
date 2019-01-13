@@ -22,6 +22,6 @@ public:
 	void setEquipment(std::unique_ptr<Equipment>&& _equipment);
 	Equipment* getEquipment() const;
 
-	void removeEquipment();
+	std::unique_ptr<Equipment> removeEquipment();
 };
 

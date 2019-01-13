@@ -4,6 +4,10 @@
 #define ERROR_TYPE_MESSAGEBOX
 //#define ERROR_TYPE_ASSERT
 
+#if defined(ERROR_TYPE_MESSAGEBOX) && defined(ERROR_TYPE_ASSERT)
+	static_assert(false, "You can only use one ERROR_TYPE!");
+#endif
+
 #define ErrorMessage
 
 #ifdef ERROR_TYPE_MESSAGEBOX

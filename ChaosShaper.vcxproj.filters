@@ -13,75 +13,132 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{e93c3b4d-bae2-4168-b61e-788f8eb8fefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\シーン関係">
+      <UniqueIdentifier>{6ae76009-31af-4eaa-83de-51aa3b96ea75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\オブジェクト関係">
+      <UniqueIdentifier>{c119cbff-5f35-4d67-806a-bcc2f08324b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ユーティリティ">
+      <UniqueIdentifier>{79e17827-e996-4a65-9dc5-a46a951c1526}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameMain.cpp">
+      <Filter>Game\シーン関係</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Game\シーン関係</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>Game\シーン関係</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Game\シーン関係</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Game\シーン関係</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ShareDataManager.cpp">
+      <Filter>Game\ユーティリティ</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Part.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Portion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Equipment.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="AbstractScene.cpp">
+      <Filter>Game\シーン関係</Filter>
     </ClCompile>
     <ClCompile Include="Attribute.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipment.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
     </ClCompile>
     <ClCompile Include="Parameter.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Part.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
     </ClCompile>
     <ClCompile Include="PartType.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClCompile>
+    <ClCompile Include="Portion.cpp">
+      <Filter>Game\オブジェクト関係</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="AbstractScene.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="GameMain.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Part.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="RequestSceneListener.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ResultScene.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Portion.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="SceneID.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
-    <ClInclude Include="Equipment.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Attribute.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PartType.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
     <ClInclude Include="ErrorMessage.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Game\ユーティリティ</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareDataManager.h">
+      <Filter>Game\ユーティリティ</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Game\ユーティリティ</Filter>
+    </ClInclude>
+    <ClInclude Include="Attribute.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Equipment.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Part.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="PartType.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\オブジェクト関係</Filter>
+    </ClInclude>
+    <ClInclude Include="Portion.h">
+      <Filter>Game\オブジェクト関係</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

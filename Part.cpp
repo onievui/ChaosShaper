@@ -45,6 +45,8 @@ Equipment* Part::getEquipment() const {
 	return nullptr;
 }
 
-void Part::removeEquipment() {
+std::unique_ptr<Equipment> Part::removeEquipment() {
+	std::unique_ptr<Equipment> equip = std::move(equipment);
 	equipment.reset(nullptr);
+	return equip;
 }
