@@ -349,7 +349,7 @@ void Console::printRight(std::string text) {
 	int x, y, width;
 	GetCursorPosition(&x, &y);
 	width = GetScreenWidth();
-	SetCursorPosition((width - text.size(), y);
+	SetCursorPosition(width - text.size(), y);
 	std::cout << text << std::endl;
 }
 

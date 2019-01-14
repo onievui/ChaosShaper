@@ -16,6 +16,7 @@ private:
 
 private:
 	PlayState playState;
+	int nowFloor;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Enemy> enemy;
 
@@ -34,4 +35,5 @@ public:
 
 private:
 	void naming();
+	void battle();
 };

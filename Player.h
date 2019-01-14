@@ -10,5 +10,8 @@ public:
 	Player();
 	Player(const std::string& _name);
 	virtual ~Player() = default;
+
+public:
+	void showInfo();
 };
 

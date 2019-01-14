@@ -15,6 +15,7 @@
 PlayScene::PlayScene(RequestSceneListener* _impl) 
 	: AbstractScene(_impl)
 	, playState(PlayState::Naming)
+	, nowFloor()
 	, player()
 	, enemy() {
 	initialize();
@@ -31,6 +32,7 @@ PlayScene::~PlayScene() {
 /// シーンの初期化
 /// </summary>
 void PlayScene::initialize() {
+	nowFloor = 1;
 	player = std::make_unique<Player>();
 }
 
@@ -44,64 +46,13 @@ void PlayScene::update() {
 		naming();
 		break;
 	case PlayScene::PlayState::Battle:
-		std::cin.get();
+		battle();
 		break;
 	default:
 		break;
 	}
 
-	//auto equip = std::make_unique<Equipment>("sword", 10, PartType::Arm, EquipParameter(), AttributePower(Attribute::Fire, 200));
-	//auto pot = std::make_unique<Portion>("pot", 10, 100);
-	//auto part = std::make_unique<Part>(PartType::Arm);
-	//player->addPart(std::move(part));
-	//player->addItem(std::move(equip));
-	//player->addItem(std::move(pot));
-
-	//std::cout << "name : " + player->getName() << std::endl;
-	//std::cout << std::endl;
-
-	//CharaParameter param = player->getStatus();
-	//std::cout << "level   : " << param.level << std::endl;
-	//std::cout << "hp      : " << param.hp << std::endl;
-	//std::cout << "attack  : " << param.attack << std::endl;
-	//std::cout << "defence : " << param.defence << std::endl;
-	//std::cout << std::endl;
-
-
-	//for (const auto& item : player->getItems()) {
-	//	std::cout << item->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	//for (const auto& part : player->getParts()) {
-	//	std::cout << part->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	//player->autoEquipping();
-
-	//for (const auto& part : player->getParts()) {
-	//	std::cout << part->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	//for (const auto& item : player->getItems()) {
-	//	std::cout << item->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	//player->removeEquipment(0);
-
-	//for (const auto& part : player->getParts()) {
-	//	std::cout << part->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	//for (const auto& item : player->getItems()) {
-	//	std::cout << item->getDetail() << std::endl;
-	//}
-	//std::cout << std::endl;
-
+	
 
 }
 
@@ -146,7 +97,7 @@ void PlayScene::naming() {
 		console->ClearScreen();
 		console->SetCursorPosition(0, 18);
 		std::stringstream text;
-		text << "「 " << in_name << " 」さんですか？";
+		text << "「 " << in_name << " 」ですか？";
 		console->printCenter(text.str());
 		console->printCenter("はい（1） いいえ（2） ", false);
 		char in;
@@ -163,10 +114,26 @@ void PlayScene::naming() {
 	}
 	console->ClearScreen();
 	console->SetCursorPosition(0, 18);
-	playState = PlayState::Battle;
 	std::string tmp_name = in_name;
 	player->setName(tmp_name);
 	std::stringstream text;
-	text << "ようこそ「 " << tmp_name << " 」さん";
+	text << "「 " << tmp_name << " 」の冒険が今始まる…";
 	console->printCenter(text.str());
+	console->SetCursorVisibility(CursorVisibility::CURSOR_INVISIBLE);
+	Sleep(3000);
+	playState = PlayState::Battle;
+}
+
+void PlayScene::battle() {
+	Console* console = Console::getIns();
+	std::stringstream text;
+
+	console->ClearScreen();
+	text << nowFloor << "階";
+	console->printCenter(text.str());
+	Sleep(1000);
+
+	player->showInfo();
+
+	std::cin.get();
 }
