@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include <string>
 #include <windows.h>
 
 
@@ -49,7 +50,7 @@ enum class CursorVisibility {
 	CURSOR_VISIBLE
 };
 
-class Console : Singleton<Console> {
+class Console : public Singleton<Console> {
 
 	friend Singleton<Console>;
 
@@ -69,17 +70,17 @@ private:
 	~Console() = default;
 
 private:
-	ScreenInfo GetCurrentConsoleScreenInfo(void);		// コンソール画面の初期化
-	void       ResizeScreen(SHORT dx, SHORT dy);		// 画面のサイズ変更
-	void       ExitWithMessage(const char* message);	// 強制終了(メッセージ付き)
+	ScreenInfo getCurrentConsoleScreenInfo();		// コンソール画面の初期化
+	void       resizeScreen(SHORT dx, SHORT dy);		// 画面のサイズ変更
+	void       exitWithMessage(const char* message);	// 強制終了(メッセージ付き)
 
 //コンソール制御関連の関数
 public:
 	void SetScreenSize(int screenWidth, int screenHeight);    // 画面サイズを設定
-	int  GetScreenWidth(void);                                // 画面幅の取得
-	int  GetScreenHeight(void);                               // 画面高さの取得
+	int  GetScreenWidth();                                // 画面幅の取得
+	int  GetScreenHeight();                               // 画面高さの取得
 	void SetFontSize(int fontSize);                           // フォントサイズの設定
-	int  GetFontSize(void);                                   // フォントサイズの取得
+	int  GetFontSize();                                   // フォントサイズの取得
 
 //カーソル制御用関数
 public:	
@@ -90,16 +91,17 @@ public:
 
 //入力制御用関数
 public:
-	int GetKeyInput(void);                                         // キー入力の取得
-	int WaitKey(void);                                             // キーが押されるまで待機
+	int GetKeyInput();                                         // キー入力の取得
+	int WaitKey();                                             // キーが押されるまで待機
 	int WaitKeyWithMessage(const char* message);                   // キーが押されるまで待機(メッセージ付き)
 	int WaitKeyWithKeyCode(const int codeList[], int numItems);    // 指定キーの入力待ち
-	int InputInteger(void);                                        // 整数値の入力
+	int InputInteger();                                        // 整数値の入力
 
 //出力制御用関数
 public:
-	void ClearScreen(void);                       // 画面のクリア
+	void ClearScreen();                       // 画面のクリア
 	void SetTextColor(ConsoleColor textColor);    // 文字色の設定
 	void SetBackColor(ConsoleColor backColor);    // 背景色の設定
-
+	void printCenter(std::string text, bool useEndl = true);			//中央揃えで出力
+	void printRight(std::string text);							//右揃えで出力
 };

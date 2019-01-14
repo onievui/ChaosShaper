@@ -1,8 +1,12 @@
 #include "PlayScene.h"
 #include "ShareDataManager.h"
 #include "Portion.h"
+#include "Console.h"
 #include <iostream>
 #include <conio.h>
+#include <sstream>
+
+
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -20,6 +24,7 @@ PlayScene::PlayScene(RequestSceneListener* _impl)
 /// デストラクタ
 /// </summary>
 PlayScene::~PlayScene() {
+
 }
 
 /// <summary>
@@ -100,7 +105,6 @@ void PlayScene::update() {
 
 }
 
-
 /// <summary>
 /// シーンの描画
 /// </summary>
@@ -130,13 +134,21 @@ std::unique_ptr<AbstractScene> PlayScene::create(RequestSceneListener* _impl) {
 /// 名前の設定
 /// </summary>
 void PlayScene::naming() {
-	std::string tmp_name;
+	Console* console = Console::getIns();
+	char in_name[256];
 	while (true) {
-		std::cout << "あなたの名前を教えてください -> ";
-		std::cin >> tmp_name;
+		console->ClearScreen();
+		console->SetCursorPosition(0, 18);
+		console->printCenter("あなたの名前を教えてください");
+		console->printCenter("-> ", false);
+		std::cin.getline(in_name, 256);
 
-		std::cout << "「 " << tmp_name << " 」さんですか？\n"
-			      << "はい（1） いいえ（2）";
+		console->ClearScreen();
+		console->SetCursorPosition(0, 18);
+		std::stringstream text;
+		text << "「 " << in_name << " 」さんですか？";
+		console->printCenter(text.str());
+		console->printCenter("はい（1） いいえ（2） ", false);
 		char in;
 		while (true) {
 			in = (char)_getch();
@@ -149,7 +161,12 @@ void PlayScene::naming() {
 			break;
 		}
 	}
-	player->setName(tmp_name);
+	console->ClearScreen();
+	console->SetCursorPosition(0, 18);
 	playState = PlayState::Battle;
-	std::cout << "ようこそ「 " << tmp_name << " 」さん\n" << std::endl;
+	std::string tmp_name = in_name;
+	player->setName(tmp_name);
+	std::stringstream text;
+	text << "ようこそ「 " << tmp_name << " 」さん";
+	console->printCenter(text.str());
 }

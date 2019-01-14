@@ -1,8 +1,14 @@
 #include "GameMain.h"
+#include "Console.h"
 #include <memory>
 
 
 int main() {
+
+	//‰ŠúÝ’è
+	Console* console = Console::getIns();
+	console->SetScreenSize(120, 40);
+	console->SetFontSize(18);
 
 	std::unique_ptr<Game> game = std::make_unique<Game>();
 
@@ -10,7 +16,7 @@ int main() {
 
 	while (true) {
 		game->update();
-		game->render();
+		//game->render();
 	}
 
 	game->finalize();

@@ -7,7 +7,7 @@
 /// コンストラクタ
 /// </summary>
 Console::Console() {
-	screenInfo = GetCurrentConsoleScreenInfo();
+	screenInfo = getCurrentConsoleScreenInfo();
 }
 
 /// <summary>
@@ -19,8 +19,8 @@ void Console::SetScreenSize(int screenWidth, int screenHeight) {
 	SHORT dx = screenWidth - screenInfo.screenSize.X;    // 水平方向の差分
 	SHORT dy = screenHeight - screenInfo.screenSize.Y;    // 垂直方向の差分
 	
-	ResizeScreen(dx, 0);
-	ResizeScreen(0, dy);
+	resizeScreen(dx, 0);
+	resizeScreen(0, dy);
 }
 
 /// <summary>
@@ -53,7 +53,7 @@ void Console::SetFontSize(int fontSize) {
 
 	// 現在使用中のフォントの取得
 	if (GetCurrentConsoleFontEx(screenInfo.hOutput, FALSE, &fontInfo) == 0) {
-		ExitWithMessage("フォントに関する情報の取得に失敗しました");
+		exitWithMessage("フォントに関する情報の取得に失敗しました");
 	}
 
 	// フォントサイズの設定
@@ -62,7 +62,7 @@ void Console::SetFontSize(int fontSize) {
 
 	// フォントの更新
 	if (SetCurrentConsoleFontEx(screenInfo.hOutput, FALSE, &fontInfo) == 0) {
-		ExitWithMessage("フォントの更新に失敗しました");
+		exitWithMessage("フォントの更新に失敗しました");
 	}
 }
 
@@ -78,7 +78,7 @@ int Console::GetFontSize() {
 
 	// 現在使用中のフォントの取得
 	if (GetCurrentConsoleFontEx(screenInfo.hOutput, FALSE, &fontInfo) == 0) {
-		ExitWithMessage("フォントに関する情報の取得に失敗しました");
+		exitWithMessage("フォントに関する情報の取得に失敗しました");
 	}
 
 	// フォントサイズの返却
@@ -95,13 +95,13 @@ void Console::SetCursorVisibility(CursorVisibility cursorState) {
 
 	// カーソルの表示状態の変更
 	if (GetConsoleCursorInfo(screenInfo.hOutput, &cursorInfo) == 0) {
-		ExitWithMessage("カーソルに関する情報の取得に失敗しました");
+		exitWithMessage("カーソルに関する情報の取得に失敗しました");
 	}
 	cursorInfo.bVisible = (int)cursorState;
 
 	// カーソルの表示状態の更新
 	if (SetConsoleCursorInfo(screenInfo.hOutput, &cursorInfo) == 0) {
-		ExitWithMessage("カーソルに関する情報の更新に失敗しました");
+		exitWithMessage("カーソルに関する情報の更新に失敗しました");
 	}
 }
 
@@ -132,7 +132,7 @@ void Console::GetCursorPosition(int* pCursorPositionX, int* pCursorPositionY) {
 
 	// スクリーンバッファに関する情報の取得
 	if (GetConsoleScreenBufferInfo(screenInfo.hOutput, &screenBufferInfo) == 0) {
-		ExitWithMessage("スクリーンバッファに関する情報の取得に失敗しました");
+		exitWithMessage("スクリーンバッファに関する情報の取得に失敗しました");
 	}
 
 	// カーソル位置の書き込み
@@ -312,7 +312,7 @@ void Console::SetTextColor(ConsoleColor textColor) {
 
 	// 文字の属性の更新
 	if (SetConsoleTextAttribute(screenInfo.hOutput, screenInfo.textAttributes) == 0) {
-		ExitWithMessage("文字色の変更に失敗しました。");
+		exitWithMessage("文字色の変更に失敗しました。");
 	}
 }
 
@@ -326,8 +326,31 @@ void Console::SetBackColor(ConsoleColor backColor) {
 
 	// 文字の属性の更新
 	if (SetConsoleTextAttribute(screenInfo.hOutput, screenInfo.textAttributes) == 0) {
-		ExitWithMessage("背景色の変更に失敗しました。");
+		exitWithMessage("背景色の変更に失敗しました。");
 	}
+}
+
+/// <summary>
+/// 中央揃えで出力
+/// </summary>
+/// <param name="text">出力文字列</param>
+void Console::printCenter(std::string text, bool useEndl) {
+	int x, y, width;
+	GetCursorPosition(&x, &y);
+	width = GetScreenWidth();
+	SetCursorPosition((width - x - text.size()) / 2 + x, y);
+	std::cout << text;
+	if (useEndl) {
+		std::cout << std::endl;
+	}
+}
+
+void Console::printRight(std::string text) {
+	int x, y, width;
+	GetCursorPosition(&x, &y);
+	width = GetScreenWidth();
+	SetCursorPosition((width - text.size(), y);
+	std::cout << text << std::endl;
 }
 
 /// <summary>
@@ -336,14 +359,14 @@ void Console::SetBackColor(ConsoleColor backColor) {
 /// <returns>
 /// 現在のコンソール画面に関する情報
 /// </returns>
-Console::ScreenInfo  Console::GetCurrentConsoleScreenInfo() {
+Console::ScreenInfo  Console::getCurrentConsoleScreenInfo() {
 	HANDLE                     hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);    // 標準出力デバイスのハンドル
 	CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;                                // スクリーンバッファに関する情報
 	ScreenInfo                 screenInfo;                                      // コンソール画面に関する情報
 
 	// スクリーンバッファに関する情報の取得
 	if (GetConsoleScreenBufferInfo(hStdOutput, &screenBufferInfo) == 0) {
-		ExitWithMessage("スクリーンバッファに関する情報の取得に失敗しました");
+		exitWithMessage("スクリーンバッファに関する情報の取得に失敗しました");
 	}
 
 
@@ -363,7 +386,7 @@ Console::ScreenInfo  Console::GetCurrentConsoleScreenInfo() {
 /// </summary>
 /// <param name="dx">水平方向の差分</param>
 /// <param name="dy">垂直方向の差分</param>
-void Console::ResizeScreen(SHORT dx, SHORT dy) {
+void Console::resizeScreen(SHORT dx, SHORT dy) {
 	// スクリーンバッファのサイズ
 	COORD  screenBufferSize = {
 		screenInfo.screenSize.X + dx,    // 幅
@@ -382,21 +405,21 @@ void Console::ResizeScreen(SHORT dx, SHORT dy) {
 	if (dx > 0 || dy > 0) {
 		// 拡大の場合
 		if (!SetConsoleScreenBufferSize(screenInfo.hOutput, screenBufferSize)) {
-			ExitWithMessage("スクリーンバッファのサイズの変更に失敗しました。");
+			exitWithMessage("スクリーンバッファのサイズの変更に失敗しました。");
 		}
 
 		if (!SetConsoleWindowInfo(screenInfo.hOutput, TRUE, &windowRect)) {
-			ExitWithMessage("ウィンドウのサイズの変更に失敗しました。");
+			exitWithMessage("ウィンドウのサイズの変更に失敗しました。");
 		}
 	}
 	else {
 		// 縮小の場合
 		if (!SetConsoleWindowInfo(screenInfo.hOutput, TRUE, &windowRect)) {
-			ExitWithMessage("ウィンドウのサイズの変更に失敗しました。");
+			exitWithMessage("ウィンドウのサイズの変更に失敗しました。");
 		}
 
 		if (!SetConsoleScreenBufferSize(screenInfo.hOutput, screenBufferSize)) {
-			ExitWithMessage("スクリーンバッファのサイズの変更に失敗しました。");
+			exitWithMessage("スクリーンバッファのサイズの変更に失敗しました。");
 		}
 	}
 
@@ -408,7 +431,7 @@ void Console::ResizeScreen(SHORT dx, SHORT dy) {
 /// 強制終了(メッセージ付き)
 /// </summary>
 /// <param name="message">出力メッセージ</param>
-void Console::ExitWithMessage(const char* message) {
+void Console::exitWithMessage(const char* message) {
 	WaitKeyWithMessage(message);
 
 	exit(-1);
