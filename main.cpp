@@ -2,9 +2,11 @@
 #include "Console.h"
 #include <memory>
 
+#include <string>
+
+
 
 int main() {
-
 	//‰ŠúÝ’è
 	Console* console = Console::getIns();
 	console->SetScreenSize(120, 40);

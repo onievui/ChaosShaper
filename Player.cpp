@@ -33,21 +33,25 @@ void Player::showInfo() {
 	std::cout << " Speed    : " << parameter.speed << std::endl;
 	std::cout << " Critical : " << parameter.critical << std::endl;
 
+	int exist_count = 0;
+
 	std::cout << "  [Parts]" << std::endl;
 	for (const auto& part : getParts()) {
 		std::cout << " " << part->getDetail() << std::endl;
+		++exist_count;
 	}
+	for (int i = exist_count; i < PARTS_MAX; ++i) {
+		std::cout << " ---" << std::endl;
+	}
+	exist_count = 0;
 
 	std::cout << "  [Items]" << std::endl;
 	for (const auto& item : getItems()) {
 		std::cout << " " << item->getDetail() << std::endl;
 	}
-
-	for (int i = 0; i < 20; i++) {
-		std::cout << "test" << i << std::endl;
+	for (int i = exist_count; i < ITEMS_MAX; ++i) {
+		std::cout << " ---" << std::endl;
 	}
-
-	std::cin.get();
 }
 
 

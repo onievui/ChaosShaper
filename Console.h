@@ -1,6 +1,7 @@
 #pragma once
 #include "Singleton.h"
 #include <string>
+#include <sstream>
 #include <windows.h>
 
 
@@ -99,9 +100,10 @@ public:
 
 //出力制御用関数
 public:
-	void ClearScreen();                       // 画面のクリア
-	void SetTextColor(ConsoleColor textColor);    // 文字色の設定
-	void SetBackColor(ConsoleColor backColor);    // 背景色の設定
-	void printCenter(std::string text, bool useEndl = true);			//中央揃えで出力
-	void printRight(std::string text);							//右揃えで出力
+	void ClearScreen();											//画面のクリア
+	void SetTextColor(ConsoleColor textColor);					//文字色の設定
+	void SetBackColor(ConsoleColor backColor);					//背景色の設定
+	void printCenter(std::string text, bool useEndl = true);	//中央揃えで出力
+	void printRight(std::string text, int offset = 0);			//右揃えで出力
+	void printRight(std::stringstream& sstream, int offset = 0);
 };

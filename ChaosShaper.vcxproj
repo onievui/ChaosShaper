@@ -148,9 +148,11 @@
   <ItemGroup>
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="Attribute.cpp" />
+    <ClCompile Include="BattleSystem.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="LogSystem.cpp" />
     <ClCompile Include="Parameter.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Equipment.cpp" />
@@ -168,10 +170,12 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Attribute.h" />
+    <ClInclude Include="BattleSystem.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ErrorMessage.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="LogSystem.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Equipment.h" />

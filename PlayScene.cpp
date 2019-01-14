@@ -2,6 +2,8 @@
 #include "ShareDataManager.h"
 #include "Portion.h"
 #include "Console.h"
+#include "BattleSystem.h"
+#include "LogSystem.h"
 #include <iostream>
 #include <conio.h>
 #include <sstream>
@@ -116,6 +118,7 @@ void PlayScene::naming() {
 	console->SetCursorPosition(0, 18);
 	std::string tmp_name = in_name;
 	player->setName(tmp_name);
+	player->setStatus(CharaParameter(1, 50, 3, 3, 3, 0));
 	std::stringstream text;
 	text << "「 " << tmp_name << " 」の冒険が今始まる…";
 	console->printCenter(text.str());
@@ -134,6 +137,18 @@ void PlayScene::battle() {
 	Sleep(1000);
 
 	player->showInfo();
+	enemy = std::make_unique<Enemy>("スライム");
+	enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
+	enemy->showInfo();
+
+	LogSystem::getIns()->addLog("testtest");
+
+	std::cin.get();
+
+	console->SetCursorPosition(0, 31);
+	std::cout << "********" << std::endl;
+
+	auto battleSystem = std::make_unique<BattleSystem>(player.get(), enemy.get());
 
 	std::cin.get();
 }
