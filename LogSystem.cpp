@@ -52,10 +52,22 @@ void LogSystem::drawFlame() {
 void LogSystem::drawLogs() {
 	drawFlame();
 	Console* console = Console::getIns();
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < LOG_MAX; ++i) {
 		console->SetCursorPosition(areaLeft + 1, areaTop + i + 1);
-		std::cout << " " << logs[(topIndex + i) % 5] << std::endl;
+		std::cout << " " << logs[(topIndex + i) % LOG_MAX] << std::endl;
 	}
+}
+
+/// <summary>
+/// ログのリセット
+/// </summary>
+void LogSystem::resetLog() {
+	for (auto& log : logs) {
+		log.clear();
+	}
+	nextIndex = 0;
+	topIndex = 0;
+	drawLogs();
 }
 
 /// <summary>
@@ -64,10 +76,9 @@ void LogSystem::drawLogs() {
 /// <param name="_log">ログ</param>
 void LogSystem::addLog(std::string _log) {
 	Console* console = Console::getIns();
-	logs[(nextIndex++)%5] = _log;
-	if (nextIndex >= 5) {
-		logs[topIndex] = "";
-		topIndex = (topIndex + 1) % 5;
+	logs[(nextIndex++)% LOG_MAX] = _log;
+	if (nextIndex > LOG_MAX) {
+		topIndex = (topIndex + 1) % LOG_MAX;
 	}
 	drawLogs();
 }
