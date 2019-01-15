@@ -22,5 +22,6 @@ public:
 	std::string getDetail() const override;
 	const EquipParameter& getParameter() const;
 	const PartType getPartType() const;
+	const AttributePower& getAttributePower() const;
 };
 

@@ -17,5 +17,6 @@ public:
 public:
 	const std::string& getName() const;
 	virtual std::string getDetail() const;
+	int getLevel() const;
 };
 

@@ -32,3 +32,13 @@ std::string Item::getDetail() const {
 	str = name + "+" + std::to_string(level);
 	return str;
 }
+
+/// <summary>
+/// ƒŒƒxƒ‹‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// ƒŒƒxƒ‹
+/// </returns>
+int Item::getLevel() const {
+	return level;
+}

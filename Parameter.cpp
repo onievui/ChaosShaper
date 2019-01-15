@@ -1,4 +1,5 @@
 #include "Parameter.h"
+#include "Part.h"
 
 
 /// <summary>
@@ -38,12 +39,14 @@ void CharaParameter::addParameter(const EquipParameter& _equip_parameter) {
 	critical += _equip_parameter.critical;
 }
 
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 EquipParameter::EquipParameter() 
 	: EquipParameter(0,0,0,0) {
 }
+
 
 /// <summary>
 /// コンストラクタ
@@ -59,3 +62,16 @@ EquipParameter::EquipParameter(const int _atk, const int _def, const int _spd, c
 	, critical(_crt) {
 }
 
+
+
+AttackParameter::AttackParameter(const int _attack, const int _critical, const Part& _part)
+	: attack(_attack)
+	, attributePower(_part.getEquipment()->getAttributePower()) 
+	, critical(_critical) {
+	Equipment* equip = _part.getEquipment();
+	int part_level = _part.getLevel();
+	int equip_level = equip->getLevel();
+	attack += ((part_level + 10) / 10) * (equip->getParameter().attack*(equip_level + 10) / 10);
+	attributePower.power *= (equip_level + 10) / 10;
+	critical += equip->getParameter().critical;
+}

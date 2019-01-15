@@ -1,4 +1,6 @@
 #pragma once
+#include "Attribute.h"
+
 
 class EquipParameter;
 
@@ -36,4 +38,21 @@ public:
 public:
 	EquipParameter();
 	EquipParameter(const int _atk, const int _def, const int _spd, const int _crt);
+};
+
+
+class Part;
+
+/// <summary>
+/// 攻撃パラメータクラス
+/// </summary>
+class AttackParameter {
+public:
+	int attack;
+	AttributePower attributePower;
+	int critical;
+
+public:
+	AttackParameter(const int attack, const int _critical, const Part& _part);
+
 };

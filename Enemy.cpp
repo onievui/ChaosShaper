@@ -18,42 +18,34 @@ Enemy::Enemy(const std::string& _name)
 void Enemy::showInfo() {
 	Console* console = Console::getIns();
 	console->SetCursorPosition(0, 1);
-	std::stringstream sstream;
+	std::ostringstream sstream;
+	CharaParameter status = getStatus();
 
 	sstream << " u " << name << " v";
 	console->printRight(sstream, 1);
-	sstream << parameter.level    << " :    Level";
+	sstream << status.level    << " :    Level";
 	console->printRight(sstream, 1);
-	sstream << parameter.hp       << "/" << parameter.maxHp << " :       HP";
+	sstream << status.hp       << "/" << status.maxHp << " :       HP";
 	console->printRight(sstream, 1);
-	sstream << parameter.attack   << " :   Attack";
+	sstream << status.attack   << " :   Attack";
 	console->printRight(sstream, 1);
-	sstream << parameter.defence  << " :  Defence";
+	sstream << status.defence  << " :  Defence";
 	console->printRight(sstream, 1);
-	sstream << parameter.speed    << " :    Speed";
+	sstream << status.speed    << " :    Speed";
 	console->printRight(sstream, 1);
-	sstream << parameter.critical << " : Critical";
+	sstream << status.critical << " : Critical";
 	console->printRight(sstream, 1);
 
-	int exist_count = 0;
 
 	console->printRight("[Parts]  ");
 	for (const auto& part : getParts()) {
 		console->printRight(part->getDetail(), 1);
-		++exist_count;
 	}
-	for (int i = exist_count; i < PARTS_MAX; ++i) {
-		console->printRight("--- ");
-	}
-	exist_count = 0;
-
+	
 	console->printRight("[Items]  ");
 	for (const auto& item : getItems()) {
 		console->printRight(item->getDetail(), 1);
-		++exist_count;
 	}
-	for (int i = exist_count; i < ITEMS_MAX; ++i) {
-		console->printRight("--- ");
-	}
+	std::cout << std::flush;
 }
 

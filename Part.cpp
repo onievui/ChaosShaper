@@ -5,8 +5,10 @@
 /// コンストラクタ
 /// </summary>
 /// <param name="_part_type">部位種類</param>
-Part::Part(const PartType _part_type)
+/// <param name="_level">レベル</param>
+Part::Part(const PartType _part_type, const int _level)
 	: partType(_part_type)
+	, level(_level)
 	, equipment() {
 
 }
@@ -29,6 +31,16 @@ std::string Part::getDetail() const {
 		return equipment->getDetail();
 	}
 	return partType.getName() + " : none";
+}
+
+/// <summary>
+/// レベルの取得
+/// </summary>
+/// <returns>
+/// レベル
+/// </returns>
+int Part::getLevel() const {
+	return level;
 }
 
 /// <summary>

@@ -25,11 +25,11 @@ private:
 
 private:
 	void initializeFlame();
-	void drawFlame();
 	void drawLogs();
 
 public:
 	void resetLog();
+	void drawFlame();
 	void addLog(std::string _log);
 };
 

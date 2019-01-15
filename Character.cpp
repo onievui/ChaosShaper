@@ -236,4 +236,12 @@ void Character::removeEquipment(const int _part_index) {
 	addItem(std::move(equip));
 }
 
+/// <summary>
+/// ダメージを与える
+/// </summary>
+/// <param name="_damage">ダメージ量</param>
+void Character::damage(const int _damage) {
+	parameter.hp -= _damage;
+}
+
 

@@ -9,7 +9,7 @@
 int main() {
 	//‰ŠúÝ’è
 	Console* console = Console::getIns();
-	console->SetScreenSize(120, 40);
+	console->SetScreenSize(100, 40);
 	console->SetFontSize(18);
 
 	std::unique_ptr<Game> game = std::make_unique<Game>();

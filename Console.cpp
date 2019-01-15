@@ -341,7 +341,7 @@ void Console::printCenter(std::string text, bool useEndl) {
 	SetCursorPosition((width - x - text.size()) / 2 + x, y);
 	std::cout << text;
 	if (useEndl) {
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
 }
 
@@ -357,19 +357,19 @@ void Console::printRight(std::string text, int offset) {
 	SetCursorPosition(width - text.size() - offset, y);
 	std::cout << text;
 	if (offset != 0) {
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
 }
 
 /// <summary>
 /// 右揃えで出力
 /// </summary>
-/// <param name="sstream">出力ストリーム</param>
+/// <param name="osstream">出力ストリーム</param>
 /// <param name="offset">オフセット（右から）</param>
-void Console::printRight(std::stringstream& sstream, int offset) {
-	printRight(sstream.str(), offset);
-	sstream.str("");
-	sstream.clear(std::stringstream::goodbit);
+void Console::printRight(std::ostringstream& osstream, int offset) {
+	printRight(osstream.str(), offset);
+	osstream.str("");
+	osstream.clear(std::stringstream::goodbit);
 }
 
 /// <summary>

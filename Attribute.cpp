@@ -21,6 +21,11 @@ AttributePower::AttributePower(const Attribute _attribute, const int _power)
 /// </returns>
 std::string AttributePower::getDetail() const {
 	std::string str = "";
+
+	if (attribute == Attribute::Normal) {
+		return str;
+	}
+
 	switch (attribute) {
 	case Attribute::Fire:   str.append("‰Š "); break;
 	case Attribute::Freeze: str.append("•X "); break;

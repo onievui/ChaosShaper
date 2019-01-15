@@ -49,3 +49,13 @@ const EquipParameter& Equipment::getParameter() const {
 const PartType Equipment::getPartType() const {
 	return partType;
 }
+
+/// <summary>
+/// ‘®«’l‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// ‘®«’l
+/// </returns>
+const AttributePower& Equipment::getAttributePower() const {
+	return attributePower;
+}

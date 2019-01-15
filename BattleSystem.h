@@ -14,4 +14,7 @@ public:
 	
 public:
 	void battle();
+
+private:
+	bool decideFirst(const CharaParameter& _chara1, const CharaParameter& _chara2);
 };

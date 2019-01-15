@@ -42,20 +42,25 @@ void LogSystem::drawFlame() {
 				std::cout << " ";
 			}
 		}
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
+	std::cout << std::flush;
 }
 
 /// <summary>
 /// ÉçÉOÇÃï\é¶
 /// </summary>
 void LogSystem::drawLogs() {
-	drawFlame();
 	Console* console = Console::getIns();
 	for (int i = 0; i < LOG_MAX; ++i) {
 		console->SetCursorPosition(areaLeft + 1, areaTop + i + 1);
-		std::cout << " " << logs[(topIndex + i) % LOG_MAX] << std::endl;
+		int index = (topIndex + i) % LOG_MAX;
+		std::cout << " " << logs[index];
+		for (int j = logs[index].size(); j < areaWidth - 4; ++j) {
+			std::cout << " ";
+		}
 	}
+	std::cout << std::flush;
 }
 
 /// <summary>

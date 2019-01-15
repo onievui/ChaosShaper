@@ -141,28 +141,12 @@ void PlayScene::battle() {
 	enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
 	enemy->showInfo();
 
+	LogSystem::getIns()->drawFlame();
 	LogSystem::getIns()->addLog(enemy->getName() + std::string("‚ªŒ»‚ê‚½I"));
 	std::cin.get();
 
-	LogSystem::getIns()->addLog("testtest");
-	std::cin.get();
-	LogSystem::getIns()->addLog("testtest2");
-	std::cin.get();
-	LogSystem::getIns()->addLog("testtest3");
-	std::cin.get();
-	LogSystem::getIns()->addLog("testtest4");
-	std::cin.get();
-	LogSystem::getIns()->addLog("testtest5");
-	std::cin.get();
-	LogSystem::getIns()->addLog("testtest6");
-	std::cin.get();
-
-	LogSystem::getIns()->resetLog();
-
-	//console->SetCursorPosition(0, 31);
-	//std::cout << "********" << std::endl;
-
 	auto battleSystem = std::make_unique<BattleSystem>(player.get(), enemy.get());
+	battleSystem->battle();
 
 	std::cin.get();
 }
