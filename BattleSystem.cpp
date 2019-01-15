@@ -1,4 +1,6 @@
 #include "BattleSystem.h"
+#include "ErrorMessage.h"
+#include "RandMt.h"
 #include <vector>
 
 
@@ -107,4 +109,57 @@ std::vector<AttackParameter> BattleSystem::createAttackParameters(Character* _ch
 	}
 
 	return attackParameters;
+}
+
+/// <summary>
+/// 攻撃処理
+/// </summary>
+/// <param name="_attack_parameter">攻撃パラメータ</param>
+/// <param name="_defence_parameter">防御パラメータ</param>
+/// <returns>
+/// ダメージ
+/// </returns>
+int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters, const DefenceParameter& _defence_parameter) {
+	int total_damage = 0;
+	for (const auto& attack : _attack_parameters) {
+		bool is_good_type = false;
+		bool is_bad_type = false;
+		int total_defence;
+		for (int i = 0; i < (int)Attribute::Num; ++i) {
+			switch (AttributeChemistories[(int)attack.attributePower.attribute][i]) {
+			case 0:
+				total_defence += _defence_parameter.defence[i];
+					break;
+			case 1:
+				is_good_type = true;
+				total_defence += _defence_parameter.defence[i] / 2;
+				break;
+			case -1:
+				is_bad_type = true;
+				total_defence += _defence_parameter.defence[i] * 3 / 2;
+				break;
+			default:
+				ErrorMessage("属性の相性で不正な値が渡されました");
+				break;
+			}
+		}
+		int fixed_attack = attack.attack;
+		fixed_attack += attack.attributePower.power*(50 * (int)is_good_type - 50 * (int)is_bad_type + 100) / 100;
+		int damage;
+		//攻撃力が低い場合
+		if (fixed_attack <= total_defence * 4 / 7) {
+			damage = RandMt::GetRand(fixed_attack / 2 - total_defence / 4);
+		}
+		else {
+			damage = fixed_attack / 2 - total_defence / 4;
+			int random_damage = RandMt::GetRand(damage * 2) - damage + 1;
+			damage += random_damage;
+		}
+		//ダメージが0以下なら修正
+		if (damage <= 0) {
+			damage = 1;
+		}
+		total_damage += damage;
+	}
+	return total_damage;
 }

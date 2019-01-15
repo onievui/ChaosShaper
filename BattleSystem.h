@@ -1,6 +1,5 @@
 #pragma once
 #include "Player.h"
-#include "Player.h"
 #include "Enemy.h"
 #include <vector>
 
@@ -23,4 +22,5 @@ public:
 private:
 	bool decideFirst(const CharaParameter& _chara1, const CharaParameter& _chara2);
 	std::vector<AttackParameter> createAttackParameters(Character* _chara);
+	int attack(const std::vector<AttackParameter>& _attack_parameters, const DefenceParameter& _defence_parameter);
 };

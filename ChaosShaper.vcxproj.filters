@@ -87,6 +87,9 @@
     <ClCompile Include="BattleSystem.cpp">
       <Filter>Game\シーン関係</Filter>
     </ClCompile>
+    <ClCompile Include="RandMt.cpp">
+      <Filter>Game\ユーティリティ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="BattleSystem.h">
       <Filter>Game\シーン関係</Filter>
+    </ClInclude>
+    <ClInclude Include="RandMt.h">
+      <Filter>Game\ユーティリティ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

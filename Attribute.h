@@ -14,6 +14,17 @@ enum class Attribute : int {
 
 
 /// <summary>
+/// ‘®«‘Š«
+/// </summary>
+static const int AttributeChemistories[(int)Attribute::Num][(int)Attribute::Num] = {
+	{0,0,0,0},
+	{0,0,-1,1},
+	{0,1,0,-1},
+	{0,-1,1,0}
+};
+
+
+/// <summary>
 /// ‘®«’lƒNƒ‰ƒX
 /// </summary>
 class AttributePower {
