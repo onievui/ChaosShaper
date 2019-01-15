@@ -81,11 +81,11 @@
     <ClCompile Include="Console.cpp">
       <Filter>Game\ユーティリティ</Filter>
     </ClCompile>
-    <ClCompile Include="BattleSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="LogSystem.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Game\ユーティリティ</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleSystem.cpp">
+      <Filter>Game\シーン関係</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,11 +152,11 @@
     <ClInclude Include="Console.h">
       <Filter>Game\ユーティリティ</Filter>
     </ClInclude>
-    <ClInclude Include="BattleSystem.h">
-      <Filter>Game\シーン関係</Filter>
-    </ClInclude>
     <ClInclude Include="LogSystem.h">
       <Filter>Game\ユーティリティ</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleSystem.h">
+      <Filter>Game\シーン関係</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

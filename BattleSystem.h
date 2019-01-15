@@ -1,8 +1,13 @@
 #pragma once
 #include "Player.h"
+#include "Player.h"
 #include "Enemy.h"
+#include <vector>
 
 
+/// <summary>
+/// í“¬ˆ—ƒNƒ‰ƒX
+/// </summary>
 class BattleSystem {
 private:
 	Player* player;
@@ -17,4 +22,5 @@ public:
 
 private:
 	bool decideFirst(const CharaParameter& _chara1, const CharaParameter& _chara2);
+	std::vector<AttackParameter> createAttackParameters(Character* _chara);
 };

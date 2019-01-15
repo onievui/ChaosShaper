@@ -1,5 +1,6 @@
 #pragma once
 #include "Attribute.h"
+#include <array>
 
 
 class EquipParameter;
@@ -53,6 +54,22 @@ public:
 	int critical;
 
 public:
-	AttackParameter(const int attack, const int _critical, const Part& _part);
+	AttackParameter(const int _attack, const int _critical);
+	AttackParameter(const int _attack, const int _critical, const Part* _part);
+
+};
+
+
+class Character;
+
+/// <summary>
+/// 防御パラメータクラス
+/// </summary>
+class DefenceParameter {
+public:
+	std::array<int, (int)Attribute::Num> defence;
+
+public:
+	DefenceParameter(Character* _chara);
 
 };

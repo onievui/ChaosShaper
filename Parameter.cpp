@@ -1,5 +1,6 @@
 #include "Parameter.h"
 #include "Part.h"
+#include "Character.h"
 
 
 /// <summary>
@@ -62,16 +63,56 @@ EquipParameter::EquipParameter(const int _atk, const int _def, const int _spd, c
 	, critical(_crt) {
 }
 
-
-
-AttackParameter::AttackParameter(const int _attack, const int _critical, const Part& _part)
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_attack">キャラの攻撃</param>
+/// <param name="_critical">キャラのクリティカル率</param>
+AttackParameter::AttackParameter(const int _attack, const int _critical)
 	: attack(_attack)
-	, attributePower(_part.getEquipment()->getAttributePower()) 
+	, attributePower(AttributePower(Attribute::Normal, 0))
 	, critical(_critical) {
-	Equipment* equip = _part.getEquipment();
-	int part_level = _part.getLevel();
-	int equip_level = equip->getLevel();
-	attack += ((part_level + 10) / 10) * (equip->getParameter().attack*(equip_level + 10) / 10);
-	attributePower.power *= (equip_level + 10) / 10;
-	critical += equip->getParameter().critical;
+
+}
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_attack">キャラの攻撃</param>
+/// <param name="_critical">キャラのクリティカル率</param>
+/// <param name="_part">部位</param>
+AttackParameter::AttackParameter(const int _attack, const int _critical, const Part* _part)
+	: attack(_attack*(_part->getLevel() + 10) / 10)
+	, attributePower(_part->isEquipping() ? _part->getEquipment()->getAttributePower() : AttributePower(Attribute::Normal, 0))
+	, critical(_critical) {
+	//装備品がある場合
+	if (_part->isEquipping()) {
+		Equipment* equip = _part->getEquipment();
+		attack += equip->getParameter().attack;
+		critical += equip->getParameter().critical;
+	}
+}
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="_chara">キャラ</param>
+DefenceParameter::DefenceParameter(Character* _chara) {
+	defence.fill(0);
+	int total_level = 0;
+	for (const auto& part : _chara->getParts()) {
+		//攻撃部位は飛ばす
+		if (part->getPartType().equal(PartType::Arm)) {
+			continue;
+		}
+		//装備している場合
+		if (part->isEquipping()) {
+			Equipment* equip = part->getEquipment();
+			AttributePower attribute_power = equip->getAttributePower();
+			defence[(int)Attribute::Normal] += equip->getParameter().defence;
+			defence[(int)attribute_power.attribute] += attribute_power.power;
+		}
+		total_level += part->getLevel();
+	}
+	defence[(int)Attribute::Normal] += total_level;
 }
