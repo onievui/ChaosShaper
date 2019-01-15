@@ -118,7 +118,7 @@ void PlayScene::naming() {
 	console->SetCursorPosition(0, 18);
 	std::string tmp_name = in_name;
 	player->setName(tmp_name);
-	player->setStatus(CharaParameter(1, 50, 3, 3, 3, 0));
+	player->setStatus(CharaParameter(1, 30, 3, 3, 3, 0));
 	std::stringstream text;
 	text << "「 " << tmp_name << " 」の冒険が今始まる…";
 	console->printCenter(text.str());

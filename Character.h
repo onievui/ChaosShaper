@@ -49,4 +49,5 @@ public:
 
 public:
 	void damage(const int _damage);
+	virtual void updateHp();
 };

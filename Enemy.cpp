@@ -49,3 +49,18 @@ void Enemy::showInfo() {
 	std::cout << std::flush;
 }
 
+/// <summary>
+/// HP‚ÌXV
+/// </summary>
+void Enemy::updateHp() {
+	Console* console = Console::getIns();
+	console->SetCursorPosition(0, 3);
+	std::ostringstream sstream;
+	CharaParameter status = getStatus();
+
+	sstream << "          " << status.hp << "/" << status.maxHp << " :       HP";
+	console->printRight(sstream, 1);
+
+	std::cout << std::flush;
+}
+

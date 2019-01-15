@@ -169,11 +169,21 @@ const CharaParameter& Character::getDefaultStatus() {
 /// </returns>
 CharaParameter Character::getStatus() {
 	CharaParameter final_parameter = parameter;
+	int total_attack_level = 0;
+	int total_defence_level = 0;
 	for (const auto &part : parts) {
 		if (part->isEquipping()) {
 			final_parameter.addParameter(part->getEquipment()->getParameter());
 		}
+		if (part->getPartType().equal(PartType::Arm)) {
+			total_attack_level += part->getLevel();
+		}
+		else {
+			total_defence_level += part->getLevel();
+		}
 	}
+	final_parameter.attack = final_parameter.attack*(total_attack_level + 10) / 10;
+	final_parameter.defence = final_parameter.defence*(total_defence_level + 10) / 10;
 	return final_parameter;
 }
 
@@ -242,6 +252,15 @@ void Character::removeEquipment(const int _part_index) {
 /// <param name="_damage">ダメージ量</param>
 void Character::damage(const int _damage) {
 	parameter.hp -= _damage;
+	if (parameter.hp < 0) {
+		parameter.hp = 0;
+	}
+}
+
+/// <summary>
+/// HPの更新(実装無)
+/// </summary>
+void Character::updateHp() {
 }
 
 

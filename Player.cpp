@@ -57,4 +57,16 @@ void Player::showInfo() {
 	std::cout << std::flush;
 }
 
+/// <summary>
+/// HP‚ÌXV
+/// </summary>
+void Player::updateHp() {
+	Console* console = Console::getIns();
+	console->SetCursorPosition(0, 3);
+
+	CharaParameter status = getStatus();
+
+	std::cout << " HP       : " << status.hp << "/" << status.maxHp << "          \n";
+}
+
 

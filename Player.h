@@ -13,5 +13,6 @@ public:
 
 public:
 	void showInfo();
+	virtual void updateHp() override;
 };
 

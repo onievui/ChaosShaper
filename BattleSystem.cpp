@@ -1,7 +1,11 @@
 #include "BattleSystem.h"
+#include "LogSystem.h"
 #include "ErrorMessage.h"
 #include "RandMt.h"
 #include <vector>
+#include <sstream>
+#include <iostream>
+
 
 
 /// <summary>
@@ -18,14 +22,9 @@ BattleSystem::BattleSystem(Player* _player, Enemy* _enemy)
 /// 戦闘処理
 /// </summary>
 void BattleSystem::battle() {
-	//CharaParameter player_status = player->getStatus();
-	//CharaParameter enemy_status = enemy->getStatus();
-	//CharaParameter* first_chara;
-	//CharaParameter* next_chara;
+	LogSystem* log_system = LogSystem::getIns();
 	Character* first_chara;
 	Character* next_chara;
-	std::vector<AttackParameter> first_attack_parameter;
-	std::vector<AttackParameter> next_attack_parameter;
 
 	//先攻を決める
 	if (decideFirst(player->getStatus(), enemy->getStatus())) {
@@ -38,15 +37,55 @@ void BattleSystem::battle() {
 	}
 
 	//攻撃データの作成
+	std::vector<AttackParameter> first_attack_parameter;
+	std::vector<AttackParameter> next_attack_parameter;
 	first_attack_parameter = createAttackParameters(first_chara);
 	next_attack_parameter = createAttackParameters(next_chara);
 	
 	//防御データの作成
-
+	DefenceParameter first_defence_parameter = DefenceParameter(first_chara);
+	DefenceParameter next_defence_parameter = DefenceParameter(next_chara);
 
 	//どちらかのHPが無くなるまで続ける
-	while (player->getDefaultStatus().hp > 0 && enemy->getDefaultStatus().hp > 0) {
-		
+	while (1) {
+		log_system->addLog(first_chara->getName() + std::string("の攻撃"));
+		Sleep(500);
+		if (!dodge(next_chara->getStatus(), first_chara->getStatus())) {
+			next_chara->damage(attack(first_attack_parameter, next_defence_parameter));
+			next_chara->updateHp();
+		}
+		else {
+			log_system->addLog(next_chara->getName() + std::string("は攻撃を回避した"));
+		}
+		Sleep(300);
+		if (next_chara->getDefaultStatus().hp <= 0) {
+			break;
+		}
+
+		log_system->addLog(next_chara->getName() + std::string("の攻撃"));
+		Sleep(500);
+		if (!dodge(first_chara->getStatus(), next_chara->getStatus())) {
+			first_chara->damage(attack(next_attack_parameter, first_defence_parameter));
+			first_chara->updateHp();
+		}
+		else {
+			log_system->addLog(first_chara->getName() + std::string("は攻撃を回避した"));
+		}
+		Sleep(300);
+		if (first_chara->getDefaultStatus().hp <= 0) {
+			break;
+		}
+	}
+
+	//プレイヤーが負けの場合
+	if (player->getDefaultStatus().hp <= 0) {
+		log_system->addLog("プレイヤーは死んでしまった…");
+		Sleep(3000);
+	}
+	//プレイヤーが勝ちの場合
+	else {
+		log_system->addLog(enemy->getName() + std::string("を倒した！"));
+		Sleep(2000);
 	}
 }
 
@@ -112,6 +151,29 @@ std::vector<AttackParameter> BattleSystem::createAttackParameters(Character* _ch
 }
 
 /// <summary>
+/// 攻撃の回避判定
+/// </summary>
+/// <param name="_chara1">避けるキャラのパラメータ</param>
+/// <param name="_chara2">攻撃するキャラのパラメータ</param>
+/// <returns>
+/// true : 回避
+/// false : 命中
+/// </returns>
+bool BattleSystem::dodge(const CharaParameter& _chara1, const CharaParameter& _chara2) {
+	int dodge_power = 100 * _chara1.speed / _chara2.speed;
+	if (dodge_power < 50) {
+		dodge_power = 49;
+	}
+	if (dodge_power >= 94) {
+		dodge_power = 94;
+	}
+	if (dodge_power < RandMt::GetRand(100)) {
+		return true;
+	}
+	return false;
+}
+
+/// <summary>
 /// 攻撃処理
 /// </summary>
 /// <param name="_attack_parameter">攻撃パラメータ</param>
@@ -124,7 +186,7 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 	for (const auto& attack : _attack_parameters) {
 		bool is_good_type = false;
 		bool is_bad_type = false;
-		int total_defence;
+		int total_defence = 0;
 		for (int i = 0; i < (int)Attribute::Num; ++i) {
 			switch (AttributeChemistories[(int)attack.attributePower.attribute][i]) {
 			case 0:
@@ -161,5 +223,8 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 		}
 		total_damage += damage;
 	}
+	std::ostringstream oss;
+	oss << total_damage << "のダメージ";
+	LogSystem::getIns()->addLog(oss.str());
 	return total_damage;
 }
