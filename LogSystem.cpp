@@ -23,8 +23,8 @@ LogSystem::LogSystem()
 void LogSystem::initializeFlame() {
 	areaLeft = 2;
 	areaTop = 31;
-	areaWidth = Console::getIns()->GetScreenWidth() - 4;
-	areaHeight = Console::getIns()->GetScreenHeight() - areaTop - 1;
+	areaWidth = Console::getIns()->getScreenWidth() - 4;
+	areaHeight = Console::getIns()->getScreenHeight() - areaTop - 1;
 }
 
 /// <summary>
@@ -32,7 +32,7 @@ void LogSystem::initializeFlame() {
 /// </summary>
 void LogSystem::drawFlame() {
 	for (int i = 0; i < areaHeight; ++i) {
-		Console::getIns()->SetCursorPosition(areaLeft, areaTop + i);
+		Console::getIns()->setCursorPosition(areaLeft, areaTop + i);
 		for (int j = 0; j < areaWidth; ++j) {
 			if (i == 0 || i == areaHeight - 1 ||
 				j == 0 || j == areaWidth - 1) {
@@ -53,7 +53,7 @@ void LogSystem::drawFlame() {
 void LogSystem::drawLogs() {
 	Console* console = Console::getIns();
 	for (int i = 0; i < LOG_MAX; ++i) {
-		console->SetCursorPosition(areaLeft + 1, areaTop + i + 1);
+		console->setCursorPosition(areaLeft + 1, areaTop + i + 1);
 		int index = (topIndex + i) % LOG_MAX;
 		std::cout << " " << logs[index];
 		for (int j = logs[index].size(); j < areaWidth - 4; ++j) {

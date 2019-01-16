@@ -96,14 +96,14 @@ void PlayScene::naming() {
 	Console* console = Console::getIns();
 	char in_name[256];
 	while (true) {
-		console->ClearScreen();
-		console->SetCursorPosition(0, 18);
+		console->clearScreen();
+		console->setCursorPosition(0, 18);
 		console->printCenter("あなたの名前を教えてください");
 		console->printCenter("-> ", false);
 		std::cin.getline(in_name, 256);
 
-		console->ClearScreen();
-		console->SetCursorPosition(0, 18);
+		console->clearScreen();
+		console->setCursorPosition(0, 18);
 		std::stringstream text;
 		text << "「 " << in_name << " 」ですか？";
 		console->printCenter(text.str());
@@ -121,15 +121,15 @@ void PlayScene::naming() {
 			break;
 		}
 	}
-	console->ClearScreen();
-	console->SetCursorPosition(0, 18);
+	console->clearScreen();
+	console->setCursorPosition(0, 18);
 	std::string tmp_name = in_name;
 	player->setName(tmp_name);
 	player->setStatus(CharaParameter(1, 30, 3, 3, 3, 0));
 	std::stringstream text;
 	text << "「 " << tmp_name << " 」の冒険が今始まる…";
 	console->printCenter(text.str());
-	console->SetCursorVisibility(CursorVisibility::CURSOR_INVISIBLE);
+	console->setCursorVisibility(CursorVisibility::CURSOR_INVISIBLE);
 	Sleep(3000);
 	playState = PlayState::Battle;
 }
@@ -141,11 +141,12 @@ void PlayScene::battle() {
 	Console* console = Console::getIns();
 	std::stringstream text;
 
-	console->ClearScreen();
+	console->clearScreen();
 	text << nowFloor << "階";
 	console->printCenter(text.str());
 	Sleep(1000);
 
+	player->addPart(std::make_unique<Part>(PartType::Arm, 1));
 	player->showInfo();
 	enemy = std::make_unique<Enemy>("スライム");
 	enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
@@ -155,7 +156,7 @@ void PlayScene::battle() {
 
 	LogSystem::getIns()->drawFlame();
 	LogSystem::getIns()->addLog(enemy->getName() + std::string("が現れた！"));
-	console->WaitKey();
+	console->waitKey();
 
 	auto battleSystem = std::make_unique<BattleSystem>(player.get(), enemy.get());
 	if (battleSystem->battle()) {
@@ -206,21 +207,26 @@ void PlayScene::getFase() {
 	}
 	player->showInfo();
 	enemy->showInfo();
-
-	Console::getIns()->WaitKey();
 }
 
 /// <summary>
 /// 装備品の設定
 /// </summary>
 void PlayScene::equipFase() {
+	LogSystem* log_system = LogSystem::getIns();
 
+	log_system->resetLog();
+	log_system->addLog("自由に装備を変更できます　zキーで終了");
+
+	player->editEquipment();
+
+	Console::getIns()->waitKey();
 }
 
 /// <summary>
 /// 敗北処理
 /// </summary>
 void PlayScene::lose() {
-	Console::getIns()->ClearScreen();
+	Console::getIns()->clearScreen();
 	implRequestScene->requestScene(SceneID::SCENE_RESULT);
 }

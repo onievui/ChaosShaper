@@ -77,32 +77,32 @@ private:
 
 //コンソール制御関連の関数
 public:
-	void SetScreenSize(int screenWidth, int screenHeight);    // 画面サイズを設定
-	int  GetScreenWidth();                                // 画面幅の取得
-	int  GetScreenHeight();                               // 画面高さの取得
-	void SetFontSize(int fontSize);                           // フォントサイズの設定
-	int  GetFontSize();                                   // フォントサイズの取得
+	void setScreenSize(int screenWidth, int screenHeight);    // 画面サイズを設定
+	int  getScreenWidth();                                // 画面幅の取得
+	int  getScreenHeight();                               // 画面高さの取得
+	void setFontSize(int fontSize);                           // フォントサイズの設定
+	int  getFontSize();                                   // フォントサイズの取得
 
 //カーソル制御用関数
 public:	
-	void SetCursorVisibility(CursorVisibility cursorState);                  // カーソルの表示・非表示切り替え
-	void SetCursorPosition(int cursorPositionX, int cursorPositionY);        // カーソルの位置設定
-	void GetCursorPosition(int* pCursorPositionX, int* pCursorPositionY);    // カーソルの位置取得
-	void MoveCursorPosition(int movementX, int movementY);                   // カーソルの移動
+	void setCursorVisibility(CursorVisibility cursorState);                  // カーソルの表示・非表示切り替え
+	void setCursorPosition(int cursorPositionX, int cursorPositionY);        // カーソルの位置設定
+	void getCursorPosition(int* pCursorPositionX, int* pCursorPositionY);    // カーソルの位置取得
+	void moveCursorPosition(int movementX, int movementY);                   // カーソルの移動
 
 //入力制御用関数
 public:
-	int GetKeyInput();                                         // キー入力の取得
-	int WaitKey();                                             // キーが押されるまで待機
-	int WaitKeyWithMessage(const char* message);                   // キーが押されるまで待機(メッセージ付き)
-	int WaitKeyWithKeyCode(const int codeList[], int numItems);    // 指定キーの入力待ち
-	int InputInteger();                                        // 整数値の入力
+	int getKeyInput();                                         // キー入力の取得
+	int waitKey();                                             // キーが押されるまで待機
+	int waitKeyWithMessage(const char* message);                   // キーが押されるまで待機(メッセージ付き)
+	int waitKeyWithKeyCode(const int codeList[], int numItems);    // 指定キーの入力待ち
+	int inputInteger();                                        // 整数値の入力
 
 //出力制御用関数
 public:
-	void ClearScreen();											//画面のクリア
-	void SetTextColor(ConsoleColor textColor);					//文字色の設定
-	void SetBackColor(ConsoleColor backColor);					//背景色の設定
+	void clearScreen();											//画面のクリア
+	void setTextColor(ConsoleColor textColor);					//文字色の設定
+	void setBackColor(ConsoleColor backColor);					//背景色の設定
 	void printCenter(std::string text, bool useEndl = true);	//中央揃えで出力
 	void printRight(std::string text, int offset = 0);			//右揃えで出力
 	void printRight(std::ostringstream& osstream, int offset = 0);

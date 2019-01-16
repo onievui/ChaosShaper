@@ -18,7 +18,7 @@ Enemy::Enemy(const std::string& _name)
 /// </summary>
 void Enemy::showInfo() {
 	Console* console = Console::getIns();
-	console->SetCursorPosition(0, 1);
+	console->setCursorPosition(0, 1);
 	std::ostringstream sstream;
 	CharaParameter status = getStatus();
 
@@ -63,7 +63,7 @@ void Enemy::showInfo() {
 /// </summary>
 void Enemy::updateHp() {
 	Console* console = Console::getIns();
-	console->SetCursorPosition(0, 3);
+	console->setCursorPosition(0, 3);
 	std::ostringstream sstream;
 	CharaParameter status = getStatus();
 
@@ -90,12 +90,12 @@ void Enemy::chooseGetObject(int* _choose_type, int* _get_index) {
 		current_type = 1;
 		cursor_pos = 10;
 	}
-	console->SetCursorPosition(0, cursor_pos);
+	console->setCursorPosition(0, cursor_pos);
 	console->printRight("←");
 
 	bool is_loop = true;
 	while (is_loop) {
-		int get_key = console->WaitKeyWithKeyCode((int*)key_code_list, 3);
+		int get_key = console->waitKeyWithKeyCode((int*)key_code_list, 3);
 		//カーソル移動
 		switch ((KeyCode)get_key) {
 		case KeyCode::KEY_UP:
@@ -122,6 +122,9 @@ void Enemy::chooseGetObject(int* _choose_type, int* _get_index) {
 					current_type = 1;
 					current_index = 0;
 				}
+				else {
+					--current_index;
+				}
 			}
 		}
 		else {
@@ -130,13 +133,16 @@ void Enemy::chooseGetObject(int* _choose_type, int* _get_index) {
 					current_type = 0;
 					current_index = parts_num - 1;
 				}
+				else {
+					++current_index;
+				}
 			}
 			else if (current_index == items_num) {
 				current_index = items_num - 1;
 			}
 		}
 		//カーソル表示
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		console->printRight("  ");
 		if (current_type == 0) {
 			cursor_pos = 9 + current_index;
@@ -144,7 +150,7 @@ void Enemy::chooseGetObject(int* _choose_type, int* _get_index) {
 		else {
 			cursor_pos = 10 + parts_num + current_index;
 		}
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		console->printRight("←");
 
 	}

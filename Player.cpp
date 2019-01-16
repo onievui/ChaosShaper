@@ -24,7 +24,7 @@ Player::Player(const std::string& _name)
 /// </summary>
 void Player::showInfo() {
 	Console* console = Console::getIns();
-	console->SetCursorPosition(0, 1);
+	console->setCursorPosition(0, 1);
 
 	CharaParameter status = getStatus();
 
@@ -63,7 +63,7 @@ void Player::showInfo() {
 /// </summary>
 void Player::updateHp() {
 	Console* console = Console::getIns();
-	console->SetCursorPosition(0, 3);
+	console->setCursorPosition(0, 3);
 
 	CharaParameter status = getStatus();
 
@@ -80,12 +80,12 @@ void Player::chooseDestroyPart() {
 	const int parts_num = parts.size();
 
 	int cursor_pos = 9;
-	console->SetCursorPosition(0, cursor_pos);
+	console->setCursorPosition(0, cursor_pos);
 	std::cout << "→" << std::endl;
 
 	bool is_loop = true;
 	while (is_loop) {
-		int get_key = console->WaitKeyWithKeyCode((int*)key_code_list, 3);
+		int get_key = console->waitKeyWithKeyCode((int*)key_code_list, 3);
 		//カーソル移動
 		switch ((KeyCode)get_key) {
 		case KeyCode::KEY_UP:
@@ -109,10 +109,10 @@ void Player::chooseDestroyPart() {
 		}
 
 		//カーソル表示
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		std::cout << "  " << std::endl;
 		cursor_pos = 9 + current_index;
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		std::cout << "→" << std::endl;
 	}
 
@@ -131,12 +131,12 @@ void Player::chooseDestroyItem() {
 	const int items_num = items.size();
 
 	int cursor_pos = 10 + parts_num;
-	console->SetCursorPosition(0, cursor_pos);
+	console->setCursorPosition(0, cursor_pos);
 	std::cout << "→" << std::endl;
 
 	bool is_loop = true;
 	while (is_loop) {
-		int get_key = console->WaitKeyWithKeyCode((int*)key_code_list, 3);
+		int get_key = console->waitKeyWithKeyCode((int*)key_code_list, 3);
 		//カーソル移動
 		switch ((KeyCode)get_key) {
 		case KeyCode::KEY_UP:
@@ -160,15 +160,125 @@ void Player::chooseDestroyItem() {
 		}
 
 		//カーソル表示
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		std::cout << "  " << std::endl;
 		cursor_pos = 8 + parts_num + current_index;
-		console->SetCursorPosition(0, cursor_pos);
+		console->setCursorPosition(0, cursor_pos);
 		std::cout << "→" << std::endl;
 	}
 
 	removeEquipment(current_index);
 	dropPart(current_index);
+}
+
+/// <summary>
+/// 自由な装備変更
+/// </summary>
+void Player::editEquipment() {
+	Console* console = Console::getIns();
+	constexpr KeyCode key_code_list[] = { KeyCode::KEY_UP,KeyCode::KEY_DOWN,KeyCode::KEY_ENTER,(KeyCode)'z' };
+	int current_type = 0;
+	int current_index = 0;
+	const int parts_num = parts.size();
+	const int items_num = items.size();
+	int cursor_pos = 9;
+	if (parts_num == 0) {
+		current_type = 1;
+		cursor_pos = 10 + PARTS_MAX;
+	}
+	console->setCursorPosition(0, cursor_pos);
+	std::cout << "→" << std::endl;
+
+	bool is_loop = true;
+	bool is_decide = false;
+	while (is_loop) {
+		int get_key = console->waitKeyWithKeyCode((int*)key_code_list, 4);
+		//カーソル移動
+		switch ((KeyCode)get_key) {
+		case KeyCode::KEY_UP:
+			--current_index;
+			break;
+		case KeyCode::KEY_DOWN:
+			++current_index;
+			break;
+		case KeyCode::KEY_ENTER:
+			is_decide = true;
+			break;
+		case (KeyCode)'z':
+			is_loop = false;
+			break;
+		default:
+			ErrorMessage("キー入力で不正な値が渡されました");
+			break;
+		}
+		if (current_type == 0) {
+			if (current_index == -1) {
+				current_index = 0;
+			}
+			else if (current_index == parts_num) {
+				if (items_num > 0) {
+					current_type = 1;
+					current_index = 0;
+				}
+				else {
+					--current_index;
+				}
+			}
+		}
+		else {
+			if (current_index == -1) {
+				if (parts_num > 0) {
+					current_type = 0;
+					current_index = parts_num - 1;
+				}
+				else {
+					++current_index;
+				}
+			}
+			else if (current_index == items_num) {
+				--current_index;
+			}
+		}
+
+		//装備変更処理
+		if (is_decide) {
+			if (current_type == 0) {
+				if (parts[current_index]->isEquipping()) {
+					removeEquipment(current_index);
+				}
+			}
+			else {
+				Equipment* equip = dynamic_cast<Equipment*>(items[current_index].get());
+				if (equip) {
+					equipItem(items.begin() + current_index);
+				}
+			}
+			showInfo();
+			is_decide = false;
+		}
+
+		//カーソル表示
+		console->setCursorPosition(0, cursor_pos);
+		std::cout << "  " << std::endl;
+		if (current_type == 0) {
+			cursor_pos = 9 + current_index;
+		}
+		else {
+			if (current_index < (int)items.size()) {
+				cursor_pos = 10 + PARTS_MAX + current_index;
+			}
+			else {
+				if (current_index == 0) {
+					current_type = 0;
+				}
+				else {
+					--current_index;
+				}
+			}
+		}
+		console->setCursorPosition(0, cursor_pos);
+		std::cout << "→" << std::endl;
+	}
 }
 
 

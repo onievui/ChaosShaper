@@ -16,5 +16,6 @@ public:
 	virtual void updateHp() override;
 	void chooseDestroyPart();
 	void chooseDestroyItem();
+	void editEquipment();
 };
 

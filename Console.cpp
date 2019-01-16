@@ -15,7 +15,7 @@ Console::Console() {
 /// </summary>
 /// <param name="screenWidth">画面の幅</param>
 /// <param name="screenHeight">画面の高さ</param>
-void Console::SetScreenSize(int screenWidth, int screenHeight) {
+void Console::setScreenSize(int screenWidth, int screenHeight) {
 	SHORT dx = screenWidth - screenInfo.screenSize.X;    // 水平方向の差分
 	SHORT dy = screenHeight - screenInfo.screenSize.Y;    // 垂直方向の差分
 	
@@ -29,7 +29,7 @@ void Console::SetScreenSize(int screenWidth, int screenHeight) {
 /// <returns>
 /// 画面幅（半角文字単位）
 /// </returns>
-int Console::GetScreenWidth() {
+int Console::getScreenWidth() {
 	return screenInfo.screenSize.X;
 }
 
@@ -39,7 +39,7 @@ int Console::GetScreenWidth() {
 /// <returns>
 /// 画面高さ（半角文字単位）
 /// </returns>
-int Console::GetScreenHeight() {
+int Console::getScreenHeight() {
 	return screenInfo.screenSize.Y;
 }
 
@@ -47,7 +47,7 @@ int Console::GetScreenHeight() {
 /// フォントサイズ（高さ）の設定
 /// </summary>
 /// <param name="fontSize">フォントサイズ[pixel]</param>
-void Console::SetFontSize(int fontSize) {
+void Console::setFontSize(int fontSize) {
 	// フォント情報
 	CONSOLE_FONT_INFOEX fontInfo = { sizeof(fontInfo) };    
 
@@ -72,7 +72,7 @@ void Console::SetFontSize(int fontSize) {
 /// <returns>
 /// フォントサイズ[pixel]
 /// </returns>
-int Console::GetFontSize() {
+int Console::getFontSize() {
 	// フォント情報
 	CONSOLE_FONT_INFOEX fontInfo = { sizeof(fontInfo) };    
 
@@ -89,7 +89,7 @@ int Console::GetFontSize() {
 /// カーソルの表示・非表示切り替え
 /// </summary>
 /// <param name="cursorState">カーソルの表示状態</param>
-void Console::SetCursorVisibility(CursorVisibility cursorState) {
+void Console::setCursorVisibility(CursorVisibility cursorState) {
 	// カーソル情報
 	CONSOLE_CURSOR_INFO cursorInfo;    
 
@@ -110,7 +110,7 @@ void Console::SetCursorVisibility(CursorVisibility cursorState) {
 /// </summary>
 /// <param name="cursorPositionX">カーソルのX座標</param>
 /// <param name="cursorPositionY">カーソルのY座標</param>
-void Console::SetCursorPosition(int cursorPositionX, int cursorPositionY) {
+void Console::setCursorPosition(int cursorPositionX, int cursorPositionY) {
 	// カーソルの位置情報
 	COORD  cursorPosition = {
 		(SHORT)cursorPositionX,    // X座標
@@ -126,7 +126,7 @@ void Console::SetCursorPosition(int cursorPositionX, int cursorPositionY) {
 /// </summary>
 /// <param name="pCursorPositionX">カーソルのX座標を格納する変数へのポインタ</param>
 /// <param name="pCursorPositionY">カーソルのY座標を格納する変数へのポインタ</param>
-void Console::GetCursorPosition(int* pCursorPositionX, int* pCursorPositionY) {
+void Console::getCursorPosition(int* pCursorPositionX, int* pCursorPositionY) {
 	// スクリーンバッファに関する情報
 	CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;    
 
@@ -145,13 +145,13 @@ void Console::GetCursorPosition(int* pCursorPositionX, int* pCursorPositionY) {
 /// </summary>
 /// <param name="movementX"> X方向の移動量</param>
 /// <param name="movementY"> Y方向の移動量</param>
-void Console::MoveCursorPosition(int movementX, int movementY) {
+void Console::moveCursorPosition(int movementX, int movementY) {
 	int cursorPositionX;    // カーソルのX座標
 	int cursorPositionY;    // カーソルのY座標
 
 	// カーソル位置の設定
-	GetCursorPosition(&cursorPositionX, &cursorPositionY);
-	SetCursorPosition((cursorPositionX + movementX), (cursorPositionY + movementY));
+	getCursorPosition(&cursorPositionX, &cursorPositionY);
+	setCursorPosition((cursorPositionX + movementX), (cursorPositionY + movementY));
 }
 
 /// <summary>
@@ -161,7 +161,7 @@ void Console::MoveCursorPosition(int movementX, int movementY) {
 /// キーコード キー入力あり(特殊キーの場合は仮想キーコードを返却)
 /// 0              キー入力なし
 /// </returns>
-int Console::GetKeyInput() {
+int Console::getKeyInput() {
 	// 入力されたキーのコード
 	int code = 0;    
 
@@ -187,14 +187,14 @@ int Console::GetKeyInput() {
 /// <returns>
 /// 入力されたキーのコードを返却
 /// </returns>
-int Console::WaitKey() {
+int Console::waitKey() {
 	// 入力されたキーのコード
 	int code;    
 
 	// 入力処理 
 	while (1) {
 		// 入力キーの取得
-		code = GetKeyInput();    
+		code = getKeyInput();    
 
 		// 入力条件の合致判定
 		if (code != 0) {
@@ -210,12 +210,12 @@ int Console::WaitKey() {
 /// <returns>
 /// 入力されたキーのコードを返却
 /// </returns>
-int Console::WaitKeyWithMessage(const char* message) {
+int Console::waitKeyWithMessage(const char* message) {
 	// メッセージの表示
 	std::cout << message << std::endl;
 
 	// 入力処理 
-	return WaitKey();
+	return waitKey();
 }
 
 /// <summary>
@@ -226,14 +226,14 @@ int Console::WaitKeyWithMessage(const char* message) {
 /// <returns>
 /// 選択肢の中から入力されたキーのコードを返却
 /// </returns>
-int Console::WaitKeyWithKeyCode(const int codeList[], int numItems) {
+int Console::waitKeyWithKeyCode(const int codeList[], int numItems) {
 	int code;    // 入力されたキーのコード
 	int i;       // ループ用
 
 	// 入力処理
 	while (1) {
 		// 入力キーの取得
-		code = GetKeyInput();    
+		code = getKeyInput();    
 
 		// 入力条件の合致判定 
 		if (code != 0) {
@@ -252,7 +252,7 @@ int Console::WaitKeyWithKeyCode(const int codeList[], int numItems) {
 /// <returns>
 /// 入力された整数値
 /// </returns>
-int Console::InputInteger() {
+int Console::inputInteger() {
 	int digit = 0;    // 桁
 	int number = 0;    // 入力値
 	int code;          // 入力されたキーのコード
@@ -260,7 +260,7 @@ int Console::InputInteger() {
 	// 入力処理 
 	while (1) {
 		// 入力キーの取得
-		code = GetKeyInput();    
+		code = getKeyInput();    
 
 		if (code >= '0' && code <= '9') {
 			digit++;
@@ -290,7 +290,7 @@ int Console::InputInteger() {
 /// <summary>
 /// 画面のクリア
 /// </summary>
-void Console::ClearScreen() {
+void Console::clearScreen() {
 	DWORD length = screenInfo.screenSize.X * screenInfo.screenSize.Y;    // 書き込む文字数
 	COORD writeCoord = { 0, 0 };                                         // 文字を書き込むスクリーンバッファ座標
 	DWORD numCharactersWritten;                                          // スクリーンバッファに実際に書き込まれた文字数
@@ -299,14 +299,14 @@ void Console::ClearScreen() {
 	FillConsoleOutputCharacter(screenInfo.hOutput, ' ', length, writeCoord, &numCharactersWritten);
 	FillConsoleOutputAttribute(screenInfo.hOutput, screenInfo.textAttributes, length, writeCoord, &numCharactersWritten);
 
-	SetCursorPosition(0, 0);
+	setCursorPosition(0, 0);
 }
 
 /// <summary>
 /// 文字色の設定
 /// </summary>
 /// <param name="textColor">文字色</param>
-void Console::SetTextColor(ConsoleColor textColor) {
+void Console::setTextColor(ConsoleColor textColor) {
 	// 文字色の変更
 	screenInfo.textAttributes = (screenInfo.textAttributes & 0xF0) | (int)textColor;
 
@@ -320,7 +320,7 @@ void Console::SetTextColor(ConsoleColor textColor) {
 /// 背景色の設定
 /// </summary>
 /// <param name="backColor">背景色</param>
-void Console::SetBackColor(ConsoleColor backColor) {
+void Console::setBackColor(ConsoleColor backColor) {
 	// 背景色の変更
 	screenInfo.textAttributes = (screenInfo.textAttributes & 0x0F) | ((int)backColor << 4);
 
@@ -336,9 +336,9 @@ void Console::SetBackColor(ConsoleColor backColor) {
 /// <param name="text">出力文字列</param>
 void Console::printCenter(std::string text, bool useEndl) {
 	int x, y, width;
-	GetCursorPosition(&x, &y);
-	width = GetScreenWidth();
-	SetCursorPosition((width - x - text.size()) / 2 + x, y);
+	getCursorPosition(&x, &y);
+	width = getScreenWidth();
+	setCursorPosition((width - x - text.size()) / 2 + x, y);
 	std::cout << text;
 	if (useEndl) {
 		std::cout << "\n";
@@ -352,9 +352,9 @@ void Console::printCenter(std::string text, bool useEndl) {
 /// <param name="offset">オフセット（右から）</param>
 void Console::printRight(std::string text, int offset) {
 	int x, y, width;
-	GetCursorPosition(&x, &y);
-	width = GetScreenWidth();
-	SetCursorPosition(width - text.size() - offset, y);
+	getCursorPosition(&x, &y);
+	width = getScreenWidth();
+	setCursorPosition(width - text.size() - offset, y);
 	std::cout << text;
 	for (int i = 0; i < offset; ++i) {
 		std::cout << " ";
@@ -451,7 +451,7 @@ void Console::resizeScreen(SHORT dx, SHORT dy) {
 /// </summary>
 /// <param name="message">出力メッセージ</param>
 void Console::exitWithMessage(const char* message) {
-	WaitKeyWithMessage(message);
+	waitKeyWithMessage(message);
 
 	exit(-1);
 }

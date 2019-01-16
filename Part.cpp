@@ -105,7 +105,7 @@ Equipment* Part::getEquipment() const {
 /// <returns>
 /// ‘•”õ•i
 /// </returns>
-std::unique_ptr<Equipment>&& Part::removeEquipment() {
+std::unique_ptr<Equipment> Part::removeEquipment() {
 	std::unique_ptr<Equipment> equip = std::move(equipment);
 	equipment.reset(nullptr);
 	return std::move(equip);
