@@ -21,7 +21,7 @@ BattleSystem::BattleSystem(Player* _player, Enemy* _enemy)
 /// <summary>
 /// 戦闘処理
 /// </summary>
-void BattleSystem::battle() {
+bool BattleSystem::battle() {
 	LogSystem* log_system = LogSystem::getIns();
 	Character* first_chara;
 	Character* next_chara;
@@ -81,11 +81,13 @@ void BattleSystem::battle() {
 	if (player->getDefaultStatus().hp <= 0) {
 		log_system->addLog("プレイヤーは死んでしまった…");
 		Sleep(3000);
+		return false;
 	}
 	//プレイヤーが勝ちの場合
 	else {
 		log_system->addLog(enemy->getName() + std::string("を倒した！"));
 		Sleep(2000);
+		return true;
 	}
 }
 
@@ -167,7 +169,7 @@ bool BattleSystem::dodge(const CharaParameter& _chara1, const CharaParameter& _c
 	if (dodge_power >= 94) {
 		dodge_power = 94;
 	}
-	if (dodge_power < RandMt::GetRand(100)) {
+	if (dodge_power < (int)RandMt::GetRand(100)) {
 		return true;
 	}
 	return false;
@@ -207,14 +209,19 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 		}
 		int fixed_attack = attack.attack;
 		fixed_attack += attack.attributePower.power*(50 * (int)is_good_type - 50 * (int)is_bad_type + 100) / 100;
+		//クリティカル処理
+		if (attack.critical > (int)RandMt::GetRand(100)) {
+			LogSystem::getIns()->addLog("クリティカル！");
+			fixed_attack = fixed_attack * 3 / 2 + 1;
+		}
 		int damage;
 		//攻撃力が低い場合
 		if (fixed_attack <= total_defence * 4 / 7) {
-			damage = RandMt::GetRand(fixed_attack / 2 - total_defence / 4);
+			damage = RandMt::GetRand(fixed_attack / 16);
 		}
 		else {
 			damage = fixed_attack / 2 - total_defence / 4;
-			int random_damage = RandMt::GetRand(damage * 2) - damage + 1;
+			int random_damage = RandMt::GetRand(damage / 8 + 1) - damage / 16 + 1;
 			damage += random_damage;
 		}
 		//ダメージが0以下なら修正

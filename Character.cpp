@@ -173,7 +173,14 @@ CharaParameter Character::getStatus() {
 	int total_defence_level = 0;
 	for (const auto &part : parts) {
 		if (part->isEquipping()) {
-			final_parameter.addParameter(part->getEquipment()->getParameter());
+			Equipment* equip = part->getEquipment();
+			final_parameter.addParameter(equip->getParameter());
+			if (part->getPartType().equal(PartType::Arm)) {
+				final_parameter.attack += equip->getAttributePower().power;
+			}
+			else {
+				final_parameter.defence += equip->getAttributePower().power;
+			}
 		}
 		if (part->getPartType().equal(PartType::Arm)) {
 			total_attack_level += part->getLevel();
