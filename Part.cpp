@@ -27,10 +27,12 @@ Part::~Part() {
 /// 情報テキスト
 /// </returns>
 std::string Part::getDetail() const {
+	std::string str;
+	str = partType.getName() + "+" + std::to_string(level) + " ";
 	if (isEquipping()) {
-		return equipment->getDetail();
+		return str + equipment->getDetailNoPart();
 	}
-	return partType.getName() + " : none";
+	return str + ": none";
 }
 
 /// <summary>
@@ -103,8 +105,8 @@ Equipment* Part::getEquipment() const {
 /// <returns>
 /// 装備品
 /// </returns>
-std::unique_ptr<Equipment> Part::removeEquipment() {
+std::unique_ptr<Equipment>&& Part::removeEquipment() {
 	std::unique_ptr<Equipment> equip = std::move(equipment);
 	equipment.reset(nullptr);
-	return equip;
+	return std::move(equip);
 }

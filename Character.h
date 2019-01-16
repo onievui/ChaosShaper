@@ -33,10 +33,14 @@ public:
 	bool addPart(std::unique_ptr<Part>&& _part);
 	bool addParts(std::vector<std::unique_ptr<Part>>&& _parts);
 	std::vector<std::unique_ptr<Part>>& getParts();
+	std::unique_ptr<Part> dropPart(const int _index);
+	bool isPartsFull() const;
 
 	bool addItem(std::unique_ptr<Item>&& _item);
 	bool addItems(std::vector<std::unique_ptr<Item>>&& _items);
 	std::vector<std::unique_ptr<Item>>& getItems();
+	std::unique_ptr<Item> dropItem(const int _index);
+	bool isItemsFull() const;
 
 	void setStatus(const CharaParameter& _parameter);
 	const CharaParameter& getDefaultStatus();
@@ -46,6 +50,7 @@ public:
 	bool equipItem(std::vector<std::unique_ptr<Item>>::iterator& _it);
 	void autoEquipping();
 	void removeEquipment(const int _part_index);
+	void autoRemoveEquipment();
 
 public:
 	void damage(const int _damage);

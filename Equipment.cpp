@@ -26,7 +26,26 @@ std::string Equipment::getDetail() const {
 	std::string str;
 	str = partType.getName() + " : ";
 	str += name + "+" + std::to_string(level);
-	str += " " + attributePower.getDetail();
+	std::string attribute_text = attributePower.getDetail();
+	if (!attribute_text.empty()) {
+		str += attribute_text;
+	}
+	return str;
+}
+
+/// <summary>
+/// 部位を含まない情報の取得
+/// </summary>
+/// <returns>
+/// 情報テキスト
+/// </returns>
+std::string Equipment::getDetailNoPart() const {
+	std::string str;
+	str = name + "+" + std::to_string(level);
+	std::string attribute_text = attributePower.getDetail();
+	if (!attribute_text.empty()) {
+		str += attribute_text;
+	}
 	return str;
 }
 

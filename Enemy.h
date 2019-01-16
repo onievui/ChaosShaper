@@ -12,5 +12,6 @@ public:
 public:
 	void showInfo();
 	virtual void updateHp() override;
+	void chooseGetObject(int* _choose_type, int* _get_index);
 };
 

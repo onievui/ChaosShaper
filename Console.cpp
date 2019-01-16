@@ -356,8 +356,8 @@ void Console::printRight(std::string text, int offset) {
 	width = GetScreenWidth();
 	SetCursorPosition(width - text.size() - offset, y);
 	std::cout << text;
-	if (offset != 0) {
-		std::cout << "\n";
+	for (int i = 0; i < offset; ++i) {
+		std::cout << " ";
 	}
 }
 

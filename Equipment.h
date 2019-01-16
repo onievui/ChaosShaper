@@ -20,6 +20,7 @@ public:
 
 public:
 	std::string getDetail() const override;
+	std::string getDetailNoPart() const;
 	const EquipParameter& getParameter() const;
 	const PartType getPartType() const;
 	const AttributePower& getAttributePower() const;

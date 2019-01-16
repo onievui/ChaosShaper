@@ -162,7 +162,7 @@ std::vector<AttackParameter> BattleSystem::createAttackParameters(Character* _ch
 /// false : 命中
 /// </returns>
 bool BattleSystem::dodge(const CharaParameter& _chara1, const CharaParameter& _chara2) {
-	int dodge_power = 100 * _chara1.speed / _chara2.speed;
+	int dodge_power = 100 * _chara2.speed / _chara1.speed;
 	if (dodge_power < 50) {
 		dodge_power = 49;
 	}
@@ -186,6 +186,7 @@ bool BattleSystem::dodge(const CharaParameter& _chara1, const CharaParameter& _c
 int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters, const DefenceParameter& _defence_parameter) {
 	int total_damage = 0;
 	for (const auto& attack : _attack_parameters) {
+		//属性相性の計算
 		bool is_good_type = false;
 		bool is_bad_type = false;
 		int total_defence = 0;
@@ -207,6 +208,7 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 				break;
 			}
 		}
+		//ダメージ計算
 		int fixed_attack = attack.attack;
 		fixed_attack += attack.attributePower.power*(50 * (int)is_good_type - 50 * (int)is_bad_type + 100) / 100;
 		//クリティカル処理

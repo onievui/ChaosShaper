@@ -44,11 +44,17 @@ void PlayScene::initialize() {
 void PlayScene::update() {
 
 	switch (playState) {
-	case PlayScene::PlayState::Naming:
+	case PlayState::Naming:
 		naming();
 		break;
-	case PlayScene::PlayState::Battle:
+	case PlayState::Battle:
 		battle();
+		break;
+	case PlayState::Win:
+		win();
+		break;
+	case PlayState::Lose:
+		lose();
 		break;
 	default:
 		break;
@@ -105,6 +111,7 @@ void PlayScene::naming() {
 		char in;
 		while (true) {
 			in = (char)_getch();
+			std::cout << in << std::endl;
 			if (in == '1' || in == '2') {
 				break;
 			}
@@ -127,6 +134,9 @@ void PlayScene::naming() {
 	playState = PlayState::Battle;
 }
 
+/// <summary>
+/// 戦闘処理
+/// </summary>
 void PlayScene::battle() {
 	Console* console = Console::getIns();
 	std::stringstream text;
@@ -139,14 +149,78 @@ void PlayScene::battle() {
 	player->showInfo();
 	enemy = std::make_unique<Enemy>("スライム");
 	enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
+	enemy->addPart(std::make_unique<Part>(PartType::Arm, 1));
+	enemy->addItem(std::make_unique<Equipment>("ひのきの棒", 1, PartType::Arm, EquipParameter(1, 0, 0, 1), AttributePower(Attribute::Normal, 0)));
 	enemy->showInfo();
 
 	LogSystem::getIns()->drawFlame();
 	LogSystem::getIns()->addLog(enemy->getName() + std::string("が現れた！"));
-	std::cin.get();
+	console->WaitKey();
 
 	auto battleSystem = std::make_unique<BattleSystem>(player.get(), enemy.get());
-	battleSystem->battle();
+	if (battleSystem->battle()) {
+		playState = PlayState::Win;
+	}
+	else {
+		playState = PlayState::Lose;
+	}
+}
 
-	std::cin.get();
+/// <summary>
+/// 勝利処理
+/// </summary>
+void PlayScene::win() {
+	LogSystem::getIns()->resetLog();
+	getFase();
+	equipFase();
+}
+
+/// <summary>
+/// 部位・アイテムの獲得
+/// </summary>
+void PlayScene::getFase() {
+	LogSystem* log_system = LogSystem::getIns();
+
+	enemy->autoRemoveEquipment();
+	enemy->showInfo();
+
+	log_system->addLog("相手の部位かアイテムを一つ入手できます");
+	int get_type, get_index;
+	enemy->chooseGetObject(&get_type, &get_index);
+
+	//部位を選んだ場合
+	if (get_type == 0) {
+		std::unique_ptr<Part> part = enemy->dropPart(get_index);
+		if (player->isPartsFull()) {
+			player->chooseDestroyPart();
+		}
+		player->addPart(std::move(part));
+	}
+	//アイテムを選んだ場合
+	else {
+		std::unique_ptr<Item> item = enemy->dropItem(get_index);
+		if (player->isItemsFull()) {
+			player->chooseDestroyItem();
+		}
+		player->addItem(std::move(item));
+	}
+	player->showInfo();
+	enemy->showInfo();
+
+	Console::getIns()->WaitKey();
+}
+
+/// <summary>
+/// 装備品の設定
+/// </summary>
+void PlayScene::equipFase() {
+
+}
+
+/// <summary>
+/// 敗北処理
+/// </summary>
+void PlayScene::lose() {
+	Console::getIns()->ClearScreen();
+	implRequestScene->requestScene(SceneID::SCENE_RESULT);
 }

@@ -97,6 +97,30 @@ std::vector<std::unique_ptr<Part>>& Character::getParts() {
 }
 
 /// <summary>
+/// 部位の取得
+/// </summary>
+/// <param name="_index">部位のインデックス</param>
+/// <returns>
+/// 部位
+/// </returns>
+std::unique_ptr<Part> Character::dropPart(const int _index) {
+	std::unique_ptr<Part> part = std::move(parts[_index]);
+	parts.erase(parts.begin() + _index);
+	return std::move(part);
+}
+
+/// <summary>
+/// 部位がいっぱいかどうか
+/// </summary>
+/// <returns>
+/// true : いっぱい
+/// false : 空きあり
+/// </returns>
+bool Character::isPartsFull() const {
+	return parts.size() == PARTS_MAX;
+}
+
+/// <summary>
 /// アイテムの追加
 /// </summary>
 /// <param name="_item">アイテム</param>
@@ -141,6 +165,30 @@ bool Character::addItems(std::vector<std::unique_ptr<Item>>&& _items) {
 /// </returns>
 std::vector<std::unique_ptr<Item>>& Character::getItems() {
 	return items;
+}
+
+/// <summary>
+/// アイテムの取得
+/// </summary>
+/// <param name="_index">アイテムのインデックス</param>
+/// <returns>
+/// アイテム
+/// </returns>
+std::unique_ptr<Item> Character::dropItem(const int _index) {
+	std::unique_ptr<Item> item = std::move(items[_index]);
+	items.erase(items.begin() + _index);
+	return std::move(item);
+}
+
+/// <summary>
+/// アイテムがいっぱいかどうか
+/// </summary>
+/// <returns>
+/// true : いっぱい
+/// false : 空きあり
+/// </returns>
+bool Character::isItemsFull() const {
+	return items.size() == ITEMS_MAX;
 }
 
 /// <summary>
@@ -254,6 +302,17 @@ void Character::removeEquipment(const int _part_index) {
 }
 
 /// <summary>
+/// 自動装備外し
+/// </summary>
+void Character::autoRemoveEquipment() {
+	for (int i = 0, end = parts.size(); i < end; ++i) {
+		if (parts[i]->isEquipping()) {
+			removeEquipment(i);
+		}
+	}
+}
+
+/// <summary>
 /// ダメージを与える
 /// </summary>
 /// <param name="_damage">ダメージ量</param>
@@ -268,6 +327,7 @@ void Character::damage(const int _damage) {
 /// HPの更新(実装無)
 /// </summary>
 void Character::updateHp() {
+
 }
 
 

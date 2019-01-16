@@ -8,7 +8,7 @@
 /// <summary>
 /// 仮想キーコード
 /// </summary>
-enum class KeyCode {
+enum class KeyCode : int {
 	KEY_BACKSPACE = 0x08,
 	KEY_ENTER = 0x0D,
 	KEY_ESC = 0x1B,

@@ -12,6 +12,8 @@ private:
 	enum class PlayState {
 		Naming,
 		Battle,
+		Win,
+		Lose,
 	};
 
 private:
@@ -36,4 +38,8 @@ public:
 private:
 	void naming();
 	void battle();
+	void win();
+	void getFase();
+	void equipFase();
+	void lose();
 };
