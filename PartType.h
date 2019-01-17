@@ -17,11 +17,13 @@ private:
 	PartTypeBase() = default;
 	PartTypeBase(const PartTypeBase&) = default;
 	constexpr explicit PartTypeBase(const int data) : data(data) {}
-	constexpr operator int() const { return data; }
+	
 
 public:
+	constexpr operator int() const { return data; }
 	std::string getName() const;
 	bool equal(const PartType _part_type_base) const;
+	int getData() const;
 };
 
 /// <summary>
@@ -33,6 +35,7 @@ public:
 	static constexpr PartTypeBase Body{ 1 };
 	static constexpr PartTypeBase Arm { 2 };
 	static constexpr PartTypeBase Leg { 3 };
+	static constexpr PartTypeBase Num { 4 };
 
 public:
 	PartType() = default;

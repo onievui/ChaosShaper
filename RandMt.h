@@ -17,8 +17,5 @@ public:
 	RandMt(RandMt&&) = delete;
 	RandMt& operator=(RandMt&&) = delete;
 
-	static unsigned int GetRand(const int _range) {
-		static RandMt instance;
-		return mt() % _range;
-	}
+	static int GetRand(const int _range);
 };

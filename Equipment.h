@@ -15,7 +15,7 @@ private:
 	AttributePower attributePower;
 
 public:
-	Equipment(const std::string& _name, const int _level, const PartType _part_ype, const EquipParameter& _parameter, const AttributePower& _attribute_power);
+	Equipment(const std::string& _name, const int _level, const PartType _part_type, const EquipParameter& _parameter, const AttributePower& _attribute_power);
 	virtual ~Equipment() = default;
 
 public:

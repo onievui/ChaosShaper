@@ -6,6 +6,7 @@ constexpr PartTypeBase PartType::Head;
 constexpr PartTypeBase PartType::Body;
 constexpr PartTypeBase PartType::Arm;
 constexpr PartTypeBase PartType::Leg;
+constexpr PartTypeBase PartType::Num;
 
 
 /// <summary>
@@ -35,5 +36,15 @@ std::string PartTypeBase::getName() const {
 /// </returns>
 bool PartTypeBase::equal(const PartType _part_type_base) const {
 	return data == _part_type_base.data;
+}
+
+/// <summary>
+/// データ（ID）の取得
+/// </summary>
+/// <returns>
+/// データ（ID）
+/// </returns>
+int PartTypeBase::getData() const {
+	return data;
 }
 

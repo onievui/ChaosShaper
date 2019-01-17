@@ -223,6 +223,7 @@ CharaParameter Character::getStatus() {
 		if (part->isEquipping()) {
 			Equipment* equip = part->getEquipment();
 			final_parameter.addParameter(equip->getParameter());
+			//•Ší‚Ì‘®«’l‚ÍUŒ‚‚ÉA–h‹ï‚Ì‘®«’l‚Í–hŒä‚É‰e‹¿‚·‚é
 			if (part->getPartType().equal(PartType::Arm)) {
 				final_parameter.attack += equip->getAttributePower().power;
 			}
@@ -230,6 +231,7 @@ CharaParameter Character::getStatus() {
 				final_parameter.defence += equip->getAttributePower().power;
 			}
 		}
+		//UŒ‚•”ˆÊ‚ÌƒŒƒxƒ‹‚ÍUŒ‚‚ÉA–hŒä•”ˆÊ‚ÌƒŒƒxƒ‹‚Í–hŒä‚É‰e‹¿‚·‚é‚æ‚¤‚É
 		if (part->getPartType().equal(PartType::Arm)) {
 			total_attack_level += part->getLevel();
 		}

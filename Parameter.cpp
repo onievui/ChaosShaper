@@ -1,6 +1,8 @@
 #include "Parameter.h"
 #include "Part.h"
 #include "Character.h"
+#include "RandMt.h"
+
 
 
 /// <summary>
@@ -40,6 +42,33 @@ void CharaParameter::addParameter(const EquipParameter& _equip_parameter) {
 	critical += _equip_parameter.critical;
 }
 
+/// <summary>
+/// レベルアップ（プレイヤー）
+/// </summary>
+void CharaParameter::LevelUp() {
+	maxHp += RandMt::GetRand(4) + 4;
+	attack += RandMt::GetRand(3) + 1;
+	defence += RandMt::GetRand(3) + 1;
+	speed += RandMt::GetRand(3) + 1;
+	hp = maxHp;
+}
+
+/// <summary>
+/// レベルアップ
+/// </summary>
+/// <param name="_level">上昇量</param>
+void CharaParameter::levelUp(const int _level) {
+	CharaParameter parameter = *this;
+	for (int i = 0; i < _level; ++i) {
+		parameter.maxHp += RandMt::GetRand(maxHp / 10 + 1) + (maxHp / 5 + 1);
+		parameter.attack += RandMt::GetRand(attack / 3 + 1) + (attack / 3 + 1);
+		parameter.defence += RandMt::GetRand(defence / 3 + 1) + (defence / 3 + 1);
+		parameter.speed += RandMt::GetRand(speed / 3 + 1) + (speed / 3 + 1);
+	}
+	parameter.hp = parameter.maxHp;
+	*this = parameter;
+}
+
 
 /// <summary>
 /// コンストラクタ
@@ -61,6 +90,27 @@ EquipParameter::EquipParameter(const int _atk, const int _def, const int _spd, c
 	, defence (_def)
 	, speed   (_spd)
 	, critical(_crt) {
+}
+
+/// <summary>
+/// レベルアップ
+/// </summary>
+/// <param name="_level">レベル</param>
+/// <param name="_rank">ランク</param>
+void EquipParameter::levelUp(const int _level, const int _rank) {
+	attack *= _level;
+	defence *= _level;
+	speed *= _level;
+	if (_rank == 1) {
+		attack = attack * 5 / 4;
+		defence = defence * 5 / 4;
+		speed = speed * 5 / 4;
+	}
+	else if (_rank == 2) {
+		attack = attack * 3 / 2;
+		defence = defence * 3 / 2;
+		speed = speed * 3 / 2;
+	}
 }
 
 /// <summary>

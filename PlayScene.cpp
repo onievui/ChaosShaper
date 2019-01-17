@@ -4,6 +4,7 @@
 #include "Console.h"
 #include "BattleSystem.h"
 #include "LogSystem.h"
+#include "EnemyFactory.h"
 #include <iostream>
 #include <conio.h>
 #include <sstream>
@@ -148,10 +149,10 @@ void PlayScene::battle() {
 
 	player->addPart(std::make_unique<Part>(PartType::Arm, 1));
 	player->showInfo();
-	enemy = std::make_unique<Enemy>("ƒXƒ‰ƒCƒ€");
-	enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
-	enemy->addPart(std::make_unique<Part>(PartType::Arm, 1));
-	enemy->addItem(std::make_unique<Equipment>("‚Ð‚Ì‚«‚Ì–_", 1, PartType::Arm, EquipParameter(1, 0, 0, 1), AttributePower(Attribute::Normal, 0)));
+	enemy = EnemyFactory::createEnemy(nowFloor);
+	//enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
+	//enemy->addPart(std::make_unique<Part>(PartType::Arm, 1));
+	//enemy->addItem(std::make_unique<Equipment>("‚Ð‚Ì‚«‚Ì–_", 1, PartType::Arm, EquipParameter(1, 0, 0, 1), AttributePower(Attribute::Normal, 0)));
 	enemy->showInfo();
 
 	LogSystem::getIns()->drawFlame();
@@ -174,6 +175,7 @@ void PlayScene::win() {
 	LogSystem::getIns()->resetLog();
 	getFase();
 	equipFase();
+	++nowFloor;
 }
 
 /// <summary>
