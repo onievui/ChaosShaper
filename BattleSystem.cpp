@@ -163,8 +163,8 @@ std::vector<AttackParameter> BattleSystem::createAttackParameters(Character* _ch
 /// </returns>
 bool BattleSystem::dodge(const CharaParameter& _chara1, const CharaParameter& _chara2) {
 	int dodge_power = 100 * _chara2.speed / _chara1.speed;
-	if (dodge_power < 50) {
-		dodge_power = 49;
+	if (dodge_power < 60) {
+		dodge_power = 59;
 	}
 	if (dodge_power >= 94) {
 		dodge_power = 94;
@@ -219,7 +219,7 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 		int damage;
 		//UŒ‚—Í‚ª’á‚¢ê‡
 		if (fixed_attack <= total_defence * 4 / 7) {
-			damage = RandMt::GetRand(fixed_attack / 16);
+			damage = RandMt::GetRand(fixed_attack / 16 + 1);
 		}
 		else {
 			damage = fixed_attack / 2 - total_defence / 4;

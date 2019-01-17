@@ -27,33 +27,33 @@ void Player::showInfo() {
 	console->setCursorPosition(0, 1);
 
 	CharaParameter status = getStatus();
-
-	std::cout << "  「 " << name << " 」" << "                \n";
-	std::cout << "  Level    : " << status.level << "                \n";
-	std::cout << "  HP       : " << status.hp << "/" << status.maxHp << "                \n";
-	std::cout << "  Attack   : " << status.attack << "                \n";
-	std::cout << "  Defence  : " << status.defence << "                \n";
-	std::cout << "  Speed    : " << status.speed << "                \n";
-	std::cout << "  Critical : " << status.critical << "                \n";
+	
+	std::cout << "  「 " << name << " 」" << "                         \n";
+	std::cout << "  Level    : " << status.level << "                         \n";
+	std::cout << "  HP       : " << status.hp << "/" << status.maxHp << "                         \n";
+	std::cout << "  Attack   : " << status.attack << "                         \n";
+	std::cout << "  Defence  : " << status.defence << "                         \n";
+	std::cout << "  Speed    : " << status.speed << "                         \n";
+	std::cout << "  Critical : " << status.critical << "                         \n";
 
 	int exist_count = 0;
 
-	std::cout << "   [Parts]" << "                \n";
+	std::cout << "   [Parts]" << "                         \n";
 	for (const auto& part : getParts()) {
-		std::cout << "  " << part->getDetail() << "                \n";
+		std::cout << "  " << part->getDetail() << "                         \n";
 		++exist_count;
 	}
 	for (int i = exist_count; i < PARTS_MAX; ++i) {
-		std::cout << "  ---" << "                \n";
+		std::cout << "  ---" << "                         \n";
 	}
 	exist_count = 0;
 
-	std::cout << "   [Items]" << "                \n";
+	std::cout << "   [Items]" << "                         \n";
 	for (const auto& item : getItems()) {
-		std::cout << "  " << item->getDetail() << "                \n";
+		std::cout << "  " << item->getDetail() << "                         \n";
 	}
 	for (int i = exist_count; i < ITEMS_MAX; ++i) {
-		std::cout << "  ---" << "                \n";
+		std::cout << "  ---" << "                         \n";
 	}
 	std::cout << std::flush;
 }
@@ -279,6 +279,13 @@ void Player::editEquipment() {
 		console->setCursorPosition(0, cursor_pos);
 		std::cout << "→" << std::endl;
 	}
+}
+
+/// <summary>
+/// レベルアップ
+/// </summary>
+void Player::levelUp() {
+	parameter.LevelUp();
 }
 
 

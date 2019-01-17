@@ -13,6 +13,50 @@ ShareDataManager::ShareDataManager() {
 /// ƒf[ƒ^‚Ì‰Šú‰»
 /// </summary>
 void ShareDataManager::initialize() {
+	finalFloor = 0;
+	playerName.clear();
+	enemyName.clear();
+}
 
+/// <summary>
+/// ƒf[ƒ^‚Ì•Û‘¶
+/// </summary>
+/// <param name="_floor">ŠK‘w</param>
+/// <param name="_player_name">ƒvƒŒƒCƒ„[–¼</param>
+/// <param name="_enemy_name">“G–¼</param>
+void ShareDataManager::saveData(const int _floor, const std::string & _player_name, const std::string & _enemy_name) {
+	finalFloor = _floor;
+	playerName = _player_name;
+	enemyName = _enemy_name;
+}
+
+/// <summary>
+/// ŠK‘w‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// ŠK‘w
+/// </returns>
+int ShareDataManager::getFloor() {
+	return finalFloor;
+}
+
+/// <summary>
+/// ƒvƒŒƒCƒ„[–¼‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// ƒvƒŒƒCƒ„[–¼
+/// </returns>
+std::string ShareDataManager::getPlayerName() {
+	return playerName;
+}
+
+/// <summary>
+/// “G–¼‚Ìæ“¾
+/// </summary>
+/// <returns>
+/// “G–¼
+/// </returns>
+std::string ShareDataManager::getEnemyName() {
+	return enemyName;
 }
 

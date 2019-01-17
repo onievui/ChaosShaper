@@ -1,5 +1,9 @@
 #include "TitleScene.h"
 #include "GameMain.h"
+#include "Console.h"
+#include <iostream>
+
+
 
 /// <summary>
 /// シーン切り替えインタフェースの登録
@@ -28,6 +32,26 @@ void TitleScene::initialize() {
 /// シーンの更新
 /// </summary>
 void TitleScene::update() {
+	Console* console = Console::getIns();
+
+	console->setCursorPosition(0, 3);
+
+	std::cout << "　　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■" << "\n";
+	std::cout << "　　■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■" << "\n";
+	std::cout << "　　■　■■■■　■　　■　■■■■　■■■■　■■■■　　　■■■■　■　　■　■■■■　■■■■　■■■■　■■■■　■" << "\n";
+	std::cout << "　　■　■　　　　■　　■　■　　■　■　　■　■　　　　　　■　　　　■　　■　■　　■　■　　■　■　　　　■　　■　■" << "\n";
+	std::cout << "　　■　■　　　　■■■■　■■■■　■　　■　■■■■　　　■■■■　■■■■　■■■■　■■■■　■■■■　■■■■　■" << "\n";
+	std::cout << "　　■　■　　　　■　　■　■　　■　■　　■　　　　■　　　　　　■　■　　■　■　　■　■　　　　■　　　　■　■　　■" << "\n";
+	std::cout << "　　■　■■■■　■　　■　■　　■　■■■■　■■■■　　　■■■■　■　　■　■　　■　■　　　　■■■■　■　　■　■" << "\n";
+	std::cout << "　　■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■" << "\n";
+	std::cout << "　　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■" << "\n";
+
+
+	std::cout << "\n\n\n\n";
+	console->printCenter("press any key");
+	console->setCursorVisibility(CursorVisibility::CURSOR_INVISIBLE);
+	console->waitKey();
+	console->setCursorVisibility(CursorVisibility::CURSOR_VISIBLE);
 	implRequestScene->requestScene(SCENE_PLAY);
 }
 

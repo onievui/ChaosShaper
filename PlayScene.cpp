@@ -127,6 +127,7 @@ void PlayScene::naming() {
 	std::string tmp_name = in_name;
 	player->setName(tmp_name);
 	player->setStatus(CharaParameter(1, 30, 3, 3, 3, 0));
+	enemy = EnemyFactory::createEnemy(nowFloor);
 	std::stringstream text;
 	text << "「 " << tmp_name << " 」の冒険が今始まる…";
 	console->printCenter(text.str());
@@ -147,12 +148,7 @@ void PlayScene::battle() {
 	console->printCenter(text.str());
 	Sleep(1000);
 
-	player->addPart(std::make_unique<Part>(PartType::Arm, 1));
 	player->showInfo();
-	enemy = EnemyFactory::createEnemy(nowFloor);
-	//enemy->setStatus(CharaParameter(1, 10, 2, 2, 2, 0));
-	//enemy->addPart(std::make_unique<Part>(PartType::Arm, 1));
-	//enemy->addItem(std::make_unique<Equipment>("ひのきの棒", 1, PartType::Arm, EquipParameter(1, 0, 0, 1), AttributePower(Attribute::Normal, 0)));
 	enemy->showInfo();
 
 	LogSystem::getIns()->drawFlame();
@@ -174,8 +170,13 @@ void PlayScene::battle() {
 void PlayScene::win() {
 	LogSystem::getIns()->resetLog();
 	getFase();
-	equipFase();
 	++nowFloor;
+	enemy = EnemyFactory::createEnemy(nowFloor);
+	enemy->showInfo();
+	equipFase();
+	player->levelUp();
+	LogSystem::getIns()->resetLog();
+	playState = PlayState::Battle;
 }
 
 /// <summary>
@@ -221,8 +222,6 @@ void PlayScene::equipFase() {
 	log_system->addLog("自由に装備を変更できます　zキーで終了");
 
 	player->editEquipment();
-
-	Console::getIns()->waitKey();
 }
 
 /// <summary>
@@ -230,5 +229,6 @@ void PlayScene::equipFase() {
 /// </summary>
 void PlayScene::lose() {
 	Console::getIns()->clearScreen();
+	ShareDataManager::getIns()->saveData(nowFloor, player->getName(), enemy->getName());
 	implRequestScene->requestScene(SceneID::SCENE_RESULT);
 }

@@ -46,6 +46,7 @@ void CharaParameter::addParameter(const EquipParameter& _equip_parameter) {
 /// レベルアップ（プレイヤー）
 /// </summary>
 void CharaParameter::LevelUp() {
+	++level;
 	maxHp += RandMt::GetRand(4) + 4;
 	attack += RandMt::GetRand(3) + 1;
 	defence += RandMt::GetRand(3) + 1;

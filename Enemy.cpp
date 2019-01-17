@@ -22,37 +22,37 @@ void Enemy::showInfo() {
 	std::ostringstream sstream;
 	CharaParameter status = getStatus();
 
-	sstream << "                " << " 「 " << name << " 」";
+	sstream << "                         " << " 「 " << name << " 」";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.level    << " :    Level";
+	sstream << "                         " << status.level    << " :    Level";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.hp       << "/" << status.maxHp << " :       HP";
+	sstream << "                         " << status.hp       << "/" << status.maxHp << " :       HP";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.attack   << " :   Attack";
+	sstream << "                         " << status.attack   << " :   Attack";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.defence  << " :  Defence";
+	sstream << "                         " << status.defence  << " :  Defence";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.speed    << " :    Speed";
+	sstream << "                         " << status.speed    << " :    Speed";
 	console->printRight(sstream, 2);
-	sstream << "                " << status.critical << " : Critical";
+	sstream << "                         " << status.critical << " : Critical";
 	console->printRight(sstream, 2);
 
 	int exist_count = 0;
 
-	console->printRight("                [Parts]   ");
+	console->printRight("                         [Parts]   ");
 	for (const auto& part : getParts()) {
-		console->printRight("                " + part->getDetail(), 2);
+		console->printRight("                         " + part->getDetail(), 2);
 		++exist_count;
 	}
 	
-	console->printRight("                [Items]   ");
+	console->printRight("                         [Items]   ");
 	for (const auto& item : getItems()) {
-		console->printRight("                " + item->getDetail(), 2);
+		console->printRight("                         " + item->getDetail(), 2);
 		++exist_count;
 	}
 	
 	for (int i = exist_count; i < PARTS_MAX + ITEMS_MAX; ++i) {
-		console->printRight("                              ", 2);
+		console->printRight("                                       ", 2);
 	}
 
 	std::cout << std::flush;

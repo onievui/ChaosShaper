@@ -105,6 +105,8 @@ CharaParameter EnemyFactory::generateParameter(const EnemyID _enemy_id, const in
 		break;
 	}
 
+	parameter.levelUp(_floor - 1);
+
 	return parameter;
 }
 

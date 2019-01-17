@@ -1,6 +1,8 @@
 #include "ResultScene.h"
 #include "ShareDataManager.h"
 #include "GameMain.h"
+#include "Console.h"
+#include "LogSystem.h"
 
 
 /// <summary>
@@ -29,7 +31,22 @@ void ResultScene::initialize() {
 /// シーンの更新
 /// </summary>
 void ResultScene::update() {
-	
+	ShareDataManager* share_data = ShareDataManager::getIns();
+	Console* console = Console::getIns();
+
+	int final_floor = share_data->getFloor();
+	std::string player_name = share_data->getPlayerName();
+	std::string enemy_name = share_data->getEnemyName();
+
+	console->setCursorPosition(0, 18);
+	std::stringstream text;
+	text << "「 " << player_name << " 」は " << final_floor << " 階で「" << enemy_name << "に倒された";
+	console->printCenter(text.str());
+
+	console->waitKey();
+	console->clearScreen();
+	LogSystem::getIns()->resetLog();
+	implRequestScene->requestScene(SCENE_TITLE);
 }
 
 
@@ -37,11 +54,7 @@ void ResultScene::update() {
 /// シーンの描画
 /// </summary>
 void ResultScene::render() {
-	//SetFontSize(30);
-	//DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("SCORE : %d", ShareDataManager::getIns()->getScore()) / 2.f, 
-	//	(float)SCREEN_CENTER_Y, COLOR_WHITE, "SCORE : %d", ShareDataManager::getIns()->getScore());
-	//SetFontSize(20);
-	//DrawFormatStringF(SCREEN_CENTER_X - GetDrawFormatStringWidth("press Z key") / 2.f, SCREEN_CENTER_Y + 100.0f, COLOR_WHITE, "press Z key");
+	
 }
 
 /// <summary>

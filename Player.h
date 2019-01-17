@@ -17,5 +17,6 @@ public:
 	void chooseDestroyPart();
 	void chooseDestroyItem();
 	void editEquipment();
+	void levelUp();
 };
 
