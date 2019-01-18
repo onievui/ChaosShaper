@@ -40,7 +40,7 @@ void ResultScene::update() {
 
 	console->setCursorPosition(0, 18);
 	std::stringstream text;
-	text << "u " << player_name << " v‚Í " << final_floor << " ŠK‚Åu" << enemy_name << "‚É“|‚³‚ê‚½";
+	text << "u " << player_name << " v‚Í " << final_floor << " ŠK‚Åu" << enemy_name << "v‚É“|‚³‚ê‚½";
 	console->printCenter(text.str());
 
 	console->waitKey();

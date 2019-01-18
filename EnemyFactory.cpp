@@ -18,7 +18,7 @@ std::unique_ptr<Enemy> EnemyFactory::createEnemy(const int _floor) {
 	int rank = RandMt::GetRand(_floor / 10 + 1);
 
 	//名前の生成
-	EnemyID enemy_id = (EnemyID)RandMt::GetRand((std::min)(_floor / 3 + 2, (int)EnemyID::Num));
+	EnemyID enemy_id = (EnemyID)RandMt::GetRand((std::min)(_floor / 6 + 2, (int)EnemyID::Num));
 	auto enemy = std::make_unique<Enemy>(generateName(enemy_id, rank));
 
 	//パラメータの生成
@@ -119,7 +119,7 @@ CharaParameter EnemyFactory::generateParameter(const EnemyID _enemy_id, const in
 /// </returns>
 std::vector<std::unique_ptr<Part>> EnemyFactory::generateParts(const int _floor) {
 	std::vector<std::unique_ptr<Part>> parts;
-	int get_parts_num = (std::min)(RandMt::GetRand(2) + _floor / 5 + 1, Character::PARTS_MAX);
+	int get_parts_num = (std::min)(RandMt::GetRand(2) + _floor / 6, Character::PARTS_MAX);
 	for (int i = 0; i < get_parts_num; ++i) {
 		PartType part_type = (PartType)RandMt::GetRand(PartType::Num.getData());
 		parts.emplace_back(std::make_unique<Part>(part_type, _floor));

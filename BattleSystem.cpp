@@ -2,6 +2,7 @@
 #include "LogSystem.h"
 #include "ErrorMessage.h"
 #include "RandMt.h"
+#include "Console.h"
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -49,7 +50,7 @@ bool BattleSystem::battle() {
 	//どちらかのHPが無くなるまで続ける
 	while (1) {
 		log_system->addLog(first_chara->getName() + std::string("の攻撃"));
-		Sleep(500);
+		Sleep(300);
 		if (!dodge(next_chara->getStatus(), first_chara->getStatus())) {
 			next_chara->damage(attack(first_attack_parameter, next_defence_parameter));
 			next_chara->updateHp();
@@ -57,13 +58,13 @@ bool BattleSystem::battle() {
 		else {
 			log_system->addLog(next_chara->getName() + std::string("は攻撃を回避した"));
 		}
-		Sleep(300);
+		Sleep(200);
 		if (next_chara->getDefaultStatus().hp <= 0) {
 			break;
 		}
 
 		log_system->addLog(next_chara->getName() + std::string("の攻撃"));
-		Sleep(500);
+		Sleep(300);
 		if (!dodge(first_chara->getStatus(), next_chara->getStatus())) {
 			first_chara->damage(attack(next_attack_parameter, first_defence_parameter));
 			first_chara->updateHp();
@@ -71,7 +72,7 @@ bool BattleSystem::battle() {
 		else {
 			log_system->addLog(first_chara->getName() + std::string("は攻撃を回避した"));
 		}
-		Sleep(300);
+		Sleep(200);
 		if (first_chara->getDefaultStatus().hp <= 0) {
 			break;
 		}
@@ -81,12 +82,14 @@ bool BattleSystem::battle() {
 	if (player->getDefaultStatus().hp <= 0) {
 		log_system->addLog("プレイヤーは死んでしまった…");
 		Sleep(3000);
+		Console::getIns()->getKeyInput();
 		return false;
 	}
 	//プレイヤーが勝ちの場合
 	else {
 		log_system->addLog(enemy->getName() + std::string("を倒した！"));
 		Sleep(2000);
+		Console::getIns()->getKeyInput();
 		return true;
 	}
 }
@@ -212,9 +215,9 @@ int BattleSystem::attack(const std::vector<AttackParameter>& _attack_parameters,
 		int fixed_attack = attack.attack;
 		fixed_attack += attack.attributePower.power*(50 * (int)is_good_type - 50 * (int)is_bad_type + 100) / 100;
 		//クリティカル処理
-		if (attack.critical > (int)RandMt::GetRand(100)) {
+		if (attack.critical > RandMt::GetRand(100)) {
 			LogSystem::getIns()->addLog("クリティカル！");
-			fixed_attack = fixed_attack * 3 / 2 + 1;
+			fixed_attack = fixed_attack * 6 / 5 + 1;
 		}
 		int damage;
 		//攻撃力が低い場合

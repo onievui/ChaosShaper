@@ -47,10 +47,10 @@ void CharaParameter::addParameter(const EquipParameter& _equip_parameter) {
 /// </summary>
 void CharaParameter::LevelUp() {
 	++level;
-	maxHp += RandMt::GetRand(4) + 4;
-	attack += RandMt::GetRand(3) + 1;
-	defence += RandMt::GetRand(3) + 1;
-	speed += RandMt::GetRand(3) + 1;
+	maxHp += RandMt::GetRand(4) + 5;
+	attack += RandMt::GetRand(4) + 1;
+	defence += RandMt::GetRand(4) + 1;
+	speed += RandMt::GetRand(4) + 1;
 	hp = maxHp;
 }
 
@@ -99,9 +99,9 @@ EquipParameter::EquipParameter(const int _atk, const int _def, const int _spd, c
 /// <param name="_level">レベル</param>
 /// <param name="_rank">ランク</param>
 void EquipParameter::levelUp(const int _level, const int _rank) {
-	attack *= _level;
-	defence *= _level;
-	speed *= _level;
+	attack *= (_level * 3 / 5 + 1);
+	defence *= (_level * 3 / 5 + 1);
+	speed *= (_level * 3 / 5 + 1);
 	if (_rank == 1) {
 		attack = attack * 5 / 4;
 		defence = defence * 5 / 4;
@@ -133,7 +133,7 @@ AttackParameter::AttackParameter(const int _attack, const int _critical)
 /// <param name="_critical">キャラのクリティカル率</param>
 /// <param name="_part">部位</param>
 AttackParameter::AttackParameter(const int _attack, const int _critical, const Part* _part)
-	: attack(_attack*(_part->getLevel() + 10) / 10)
+	: attack(_attack*(_part->getLevel() + 20) / 20)
 	, attributePower(_part->isEquipping() ? _part->getEquipment()->getAttributePower() : AttributePower(Attribute::Normal, 0))
 	, critical(_critical) {
 	//装備品がある場合

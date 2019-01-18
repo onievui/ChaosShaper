@@ -14,7 +14,7 @@
 /// </returns>
 std::vector<std::unique_ptr<Item>> ItemFactory::createItems(const int _floor) {
 	std::vector<std::unique_ptr<Item>> items;
-	int get_items_num = (std::min)(RandMt::GetRand(2) + _floor / 5 + 2, Character::ITEMS_MAX);
+	int get_items_num = (std::min)(RandMt::GetRand(2) + _floor / 5 + 1, Character::ITEMS_MAX);
 	for (int i = 0; i < get_items_num; ++i) {
 		PartType part_type = (PartType)RandMt::GetRand((int)PartType::Num);
 		int rank = RandMt::GetRand(3);

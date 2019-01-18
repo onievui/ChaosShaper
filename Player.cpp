@@ -51,6 +51,7 @@ void Player::showInfo() {
 	std::cout << "   [Items]" << "                         \n";
 	for (const auto& item : getItems()) {
 		std::cout << "  " << item->getDetail() << "                         \n";
+		++exist_count;
 	}
 	for (int i = exist_count; i < ITEMS_MAX; ++i) {
 		std::cout << "  ---" << "                         \n";
